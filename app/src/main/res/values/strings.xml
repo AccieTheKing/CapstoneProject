@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">capstone</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="test_home">Home</string>
+    <string name="test_profile">Profile</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
