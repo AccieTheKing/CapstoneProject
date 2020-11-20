@@ -10,4 +10,5 @@
 
     <!--  Menu Fragment  -->
     <string name="txtTitleMenuFragment">Menu</string>
+    <string name="txtBtnAddToMenu">Add</string>
 </resources>
