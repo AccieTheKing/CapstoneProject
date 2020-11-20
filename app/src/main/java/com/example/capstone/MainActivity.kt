@@ -3,6 +3,9 @@ package com.example.capstone
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.capstone.ui.HomeFragment
+import com.example.capstone.ui.MenuFragment
+import com.example.capstone.ui.ProfileFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {

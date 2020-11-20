@@ -5,7 +5,7 @@
     android:id="@+id/clMenuFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MenuFragment" >
+    tools:context=".ui.MenuFragment" >
 
     <TextView
         android:id="@+id/txtTitleViewMenuFragment"

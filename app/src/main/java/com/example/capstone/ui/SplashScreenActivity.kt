@@ -1,8 +1,10 @@
-package com.example.capstone
+package com.example.capstone.ui
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.capstone.MainActivity
+import com.example.capstone.R
 import java.util.*
 import kotlin.concurrent.schedule
 
