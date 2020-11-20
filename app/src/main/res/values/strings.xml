@@ -8,4 +8,6 @@
     <string name="txtPhoneNumberProfileFragment">1234567890</string>
     <string name="txtEmailAddressProfileFragment">test@gmail.com</string>
 
+    <!--  Menu Fragment  -->
+    <string name="txtTitleMenuFragment">Menu</string>
 </resources>
