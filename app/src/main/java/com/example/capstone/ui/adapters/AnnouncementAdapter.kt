@@ -34,7 +34,7 @@ class AnnouncementAdapter(private val announcements: List<Announcement>) :
         fun bind(announcement: Announcement) {
             itemView.txtAnnouncementTitle.text = announcement.title
             itemView.txtAnnouncementText.text = announcement.text
-            Glide.with(context).load(announcement.banner_image).into(itemView.imgAnnouncement)
+            Glide.with(itemView.context).load(announcement.banner_image).into(itemView.imgAnnouncement)
         }
     }
 }
