@@ -11,4 +11,13 @@
     <!--  Menu Fragment  -->
     <string name="txtTitleMenuFragment">Menu</string>
     <string name="txtBtnAddToMenu">Add</string>
+
+    <!--  Product detail Fragment  -->
+    <string name="txtTitleProductDetailFragment">Products</string>
+
+    <!--  Cart detail Fragment  -->
+    <string name="txtTitleCartFragment">Cart</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
