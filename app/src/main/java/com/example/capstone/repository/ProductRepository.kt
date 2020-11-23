@@ -1,5 +1,6 @@
 package com.example.capstone.repository
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.capstone.api.ProductApi
 import com.example.capstone.models.Product
@@ -12,6 +13,10 @@ class ProductRepository {
     private val _products: MutableLiveData<List<Product>> =
         MutableLiveData() // list of all products
     private val _cart: MutableLiveData<List<Product>> = MutableLiveData() // user cart
+
+    val product: LiveData<Product> get() = _product
+    val products: LiveData<List<Product>> get() = _products
+    val cart: LiveData<List<Product>> get() = _cart
 
     /**
      * This method will give a list of products available
