@@ -10,7 +10,7 @@ import com.google.gson.annotations.SerializedName
  * the email address
  */
 data class Profile(
-    @SerializedName("phone_number") var phone_number: Int,
+    @SerializedName("phone_number") var phone_number: String,
     @SerializedName("email_address") var email_address: String,
     @SerializedName("profile_picture") var profile_picture: String,
 )
