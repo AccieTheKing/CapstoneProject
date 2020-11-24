@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.capstone.api.ProductApi
 import com.example.capstone.models.Product
+import com.example.capstone.models.Profile
 import com.example.capstone.services.ProductApiService
 
 class ProductRepository {
@@ -38,8 +39,8 @@ class ProductRepository {
      * This method will add a product to the user cart and return the list
      * without this product
      */
-    suspend fun addProductToCart(product_id: Int) {
-        val result = productApiService.addProductToCart(product_id)
+    suspend fun addProductToCart(product: Product, profile: Profile) {
+        val result = productApiService.addProductToCart(product.id, profile.phone_number)
         _cart.value = result
     }
 
@@ -47,8 +48,8 @@ class ProductRepository {
      * This method will remove a product out of the user cart and return the list
      * without this product
      */
-    suspend fun removeProductToCart(product_id: Int) {
-        val result = productApiService.removeProductFromCart(product_id)
+    suspend fun removeProductToCart(product_id: Int, profile_id: Int) {
+        val result = productApiService.removeProductFromCart(product_id, profile_id)
         _cart.value = result
     }
 }
