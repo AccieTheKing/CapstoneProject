@@ -5,16 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.capstone.R
 import com.example.capstone.models.Announcement
 import com.example.capstone.ui.adapters.AnnouncementAdapter
+import com.example.capstone.ui.viewmodels.AnnouncementViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment() {
     private val announcements = arrayListOf<Announcement>()
+    private val viewModel: AnnouncementViewModel by viewModels()
     private lateinit var announcementAdapter: AnnouncementAdapter
 
     override fun onCreateView(
@@ -28,6 +31,8 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+
+        observeAnnouncement()
     }
 
     private fun initView() {
@@ -39,5 +44,14 @@ class HomeFragment : Fragment() {
             DividerItemDecoration.VERTICAL
         )
         announcementAdapter.notifyDataSetChanged()
+    }
+
+    private fun observeAnnouncement() {
+        viewModel.getAnnouncements()
+        viewModel.announcements.observe(viewLifecycleOwner, {
+            announcements.clear()
+            announcements.addAll(it)
+            announcementAdapter.notifyDataSetChanged()
+        })
     }
 }
