@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class ProductApi {
     companion object {
         // The base url off the api.
-        private const val baseUrl = ""
+        private const val baseUrl = "http://192.168.178.199:5000/"
 
         /**
          * @return [ProductApiService] The service class off the retrofit client.
