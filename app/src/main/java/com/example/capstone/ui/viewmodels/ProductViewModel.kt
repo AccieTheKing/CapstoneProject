@@ -3,6 +3,8 @@ package com.example.capstone.ui.viewmodels
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.capstone.models.Product
+import com.example.capstone.models.Profile
 import com.example.capstone.repository.ProductRepository
 import kotlinx.coroutines.launch
 
@@ -25,15 +27,15 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
-    fun addProductToCart(product_id: Int) {
+    fun addProductToCart(product: Product, profile: Profile) {
         viewModelScope.launch {
-            productRepository.addProductToCart(product_id)
+            productRepository.addProductToCart(product, profile)
         }
     }
 
-    fun removeProductToCart(product_id: Int) {
+    fun removeProductToCart(product_id: Int, profile_id: Int) {
         viewModelScope.launch {
-            productRepository.removeProductToCart(product_id)
+            productRepository.removeProductToCart(product_id, profile_id)
         }
     }
 }
