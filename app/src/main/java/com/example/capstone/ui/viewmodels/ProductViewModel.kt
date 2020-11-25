@@ -27,6 +27,12 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
+    fun getCart() {
+        viewModelScope.launch {
+            productRepository.getCart()
+        }
+    }
+
     fun addProductToCart(product: Product, profile: Profile) {
         viewModelScope.launch {
             productRepository.addProductToCart(product, profile)
