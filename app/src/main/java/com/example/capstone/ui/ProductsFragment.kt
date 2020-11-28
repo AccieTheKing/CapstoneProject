@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -18,12 +18,8 @@ import kotlinx.android.synthetic.main.fragment_products.*
 
 class ProductsFragment : Fragment() {
     private val products = arrayListOf<Product>()
-    private val viewModel: ProductViewModel by viewModels()
+    private val viewModel: ProductViewModel by activityViewModels()
     private lateinit var productAdapter: ProductAdapter
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,8 +58,11 @@ class ProductsFragment : Fragment() {
         })
     }
 
-    private fun addToCart(product: Product){
-        viewModel.addProductToCart(product, Profile("0640117445", "acdaling@gmail.com", "https://images.acdaling.nl/me.jpg"))
+    private fun addToCart(product: Product) {
+        viewModel.addProductToCart(
+            product,
+            Profile("0640117445", "acdaling@gmail.com", "https://images.acdaling.nl/me.jpg")
+        )
     }
 
 }
