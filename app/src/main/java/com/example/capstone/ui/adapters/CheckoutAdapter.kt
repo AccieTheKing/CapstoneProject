@@ -32,8 +32,8 @@ class CheckoutAdapter(private val products: List<Product>) :
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(product: Product) {
-            itemView.txtInputAmountCheckoutText.setText("")
-            itemView.txtCheckoutPrice.text = product.price.toString()
+            itemView.txtInputAmountCheckoutText.text = String.format("Total amount: %s", product.amount.toString())
+            itemView.txtCheckoutPriceText.text = String.format("Total price: %s", product.price.toString())
             Glide.with(itemView.context).load(product.banner_image)
                 .into(itemView.ivProductCheckout)
         }
