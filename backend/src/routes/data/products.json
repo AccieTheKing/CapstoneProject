@@ -4,34 +4,39 @@
         "title": "Pizza",
         "banner_image": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/italiaanse-pizza-geschiedenis-1556716252.jpg?crop=1.00xw:0.755xh;0,0.232xh&resize=640:*",
         "description": "",
-        "price": 5.0
+        "price": 5.0,
+        "amount": 1
     },
     {
         "id": 1,
         "title": "Wildstoofpot voor de Kerst",
         "banner_image": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/wildstoofpot-voor-de-kerst-img900-1542709957.jpg?crop=1xw:1xh;center,top&resize=768:*",
         "description": "Het stoofvlees voor deze wildgratin kun je een dag van tevoren maken, wel zo handig! En de smaak? Die gaat er alleen maar op vooruit.",
-        "price": 25.65
+        "price": 25.65,
+        "amount": 1
     },
     {
         "id": 2,
         "title": "Caribische salade met quinoa, mango, walnoten en munt",
         "banner_image": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/caribische-salade-met-quinoa-mango-walnoten-en-munt-img900-1543487216.jpg?resize=768:*",
         "description": "Haal de Caribische zon in huis met deze quinoasalade met mango, walnoten en munt. Yum!",
-        "price": 43.85
+        "price": 43.85,
+        "amount": 1
     },
     {
         "id": 3,
         "title": "Gekaramelliseerde ananas met walnoten-misokaramel en kokosyoghurt",
         "banner_image": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/gekaramelliseerde-ananas-met-walnoten-misokaramel-en-kokosyoghurt-img900-1542989221.jpg?crop=1xw:1xh;center,top&resize=768:*",
         "description": "We are building a greath app with the team",
-        "price": 30.53
+        "price": 30.53,
+        "amount": 1
     },
     {
         "id": 4,
         "title": "Geroosterde tomatensoep met basilicum",
         "banner_image": "https://overetengesproken.nl/blog/wp-content/uploads/2016/09/geroosterde-tomatensoep-met-basilicumolie-1.jpg",
         "description": "What will my grade be for this app?",
-        "price": 18.95
+        "price": 18.95,
+        "amount": 1
     }
 ]
