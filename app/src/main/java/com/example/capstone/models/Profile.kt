@@ -13,4 +13,5 @@ data class Profile(
     @SerializedName("phone_number") var phone_number: String,
     @SerializedName("email_address") var email_address: String,
     @SerializedName("profile_picture") var profile_picture: String,
+    @SerializedName("profile_background") var profile_background: String,
 )
