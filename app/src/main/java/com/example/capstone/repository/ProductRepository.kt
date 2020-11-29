@@ -52,4 +52,9 @@ class ProductRepository {
         val result = productApiService.removeProductFromCart(product_id, profile_id)
         _cart.value = result
     }
+
+    suspend fun getCart() {
+        val result = productApiService.getCart(0)
+        _cart.value = result
+    }
 }
