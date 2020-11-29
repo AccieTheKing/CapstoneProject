@@ -14,6 +14,7 @@ import com.example.capstone.models.Product
 import com.example.capstone.models.Profile
 import com.example.capstone.ui.adapters.ProductAdapter
 import com.example.capstone.ui.viewmodels.ProductViewModel
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_products.*
 
 class ProductsFragment : Fragment() {
@@ -56,6 +57,19 @@ class ProductsFragment : Fragment() {
             products.addAll(it)
             productAdapter.notifyDataSetChanged()
         })
+
+    }
+
+    private fun observeAdditions(productTitle: String) {
+        viewModel.success.observe(viewLifecycleOwner, {
+            if (it) {
+                Snackbar.make(
+                    this.requireView(),
+                    "Successful added $productTitle to cart",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            }
+        })
     }
 
     private fun addToCart(product: Product) {
@@ -63,6 +77,7 @@ class ProductsFragment : Fragment() {
             product,
             Profile("0640117445", "acdaling@gmail.com", "https://images.acdaling.nl/me.jpg")
         )
+        observeAdditions(product.title)
     }
 
 }

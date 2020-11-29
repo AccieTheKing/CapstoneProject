@@ -18,6 +18,7 @@ class ProductRepository {
     val product: LiveData<Product> get() = _product
     val products: LiveData<List<Product>> get() = _products
     val cart: LiveData<List<Product>> get() = _cart
+    val success = MutableLiveData<Boolean>()
 
     /**
      * This method will give a list of products available
@@ -41,6 +42,7 @@ class ProductRepository {
      */
     suspend fun addProductToCart(product: Product, profile: Profile) {
         val result = productApiService.addProductToCart(product.id, profile.phone_number)
+        success.value = true
         _cart.value = result
     }
 
@@ -50,11 +52,13 @@ class ProductRepository {
      */
     suspend fun removeProductToCart(product_id: Int, profile_id: Int) {
         val result = productApiService.removeProductFromCart(product_id, profile_id)
+        success.value = true
         _cart.value = result
     }
 
     suspend fun getCart() {
         val result = productApiService.getCart(0)
+        success.value = true
         _cart.value = result
     }
 }

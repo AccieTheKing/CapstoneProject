@@ -14,6 +14,7 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
     val products = productRepository.products
     val product = productRepository.product
     val cart = productRepository.cart
+    val success = productRepository.success
 
     fun getProducts() {
         viewModelScope.launch {
