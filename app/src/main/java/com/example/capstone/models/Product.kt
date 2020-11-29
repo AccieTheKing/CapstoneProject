@@ -13,5 +13,6 @@ data class Product(
     @SerializedName("title") var title: String,
     @SerializedName("banner_image") var banner_image: String,
     @SerializedName("description") var description: String,
+    @SerializedName("amount") var amount: Int,
     @SerializedName("price") var price: Double,
 )
