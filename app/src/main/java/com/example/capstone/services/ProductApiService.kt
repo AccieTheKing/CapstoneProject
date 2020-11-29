@@ -12,6 +12,9 @@ interface ProductApiService {
     @GET("/products/{id}")
     suspend fun getProduct(@Path("id") id: Int): Product
 
+    @GET("/products/cart/{id}")
+    suspend fun getCart(@Path("id") id: Int): List<Product>
+
     @POST("/products/cart/add/{product_id}/{profile_id}")
     suspend fun addProductToCart(
         @Path("product_id") product_id: Int,
