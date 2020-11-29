@@ -7,6 +7,17 @@
     android:layout_height="match_parent"
     tools:context=".ui.ProfileFragment">
 
+    <ImageView
+        android:id="@+id/imgUserProfileFragment"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/txtViewEmailProfileFragment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtTitleViewHomeFragment"
+        tools:src="@tools:sample/avatars" />
+
     <TextView
         android:id="@+id/txtTitleViewHomeFragment"
         android:layout_width="match_parent"
@@ -19,61 +30,40 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clUserCardPerofileFragment"
+    <EditText
+        android:id="@+id/txtViewPhoneNumberProfileFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:background="#00FFFFFF"
+        android:ems="10"
+        android:inputType="textPersonName|phone"
+        android:text="@string/txtPhoneNumberProfileFragment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtTitleViewHomeFragment">
+        app:layout_constraintTop_toBottomOf="@+id/txtViewEmailProfileFragment" />
 
-        <ImageView
-            android:id="@+id/imgProfileBackgroundProfileFragment"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/avatars" />
+    <EditText
+        android:id="@+id/txtViewEmailProfileFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:inputType="textPersonName|textEmailAddress"
+        android:text="@string/txtEmailAddressProfileFragment"
+        app:layout_constraintBottom_toTopOf="@+id/txtViewPhoneNumberProfileFragment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgUserProfileFragment" />
 
-        <TextView
-            android:id="@+id/txtViewPhoneNumberProfileFragment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="@string/txtPhoneNumberProfileFragment"
-            android:textAlignment="center"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/txtViewEmailProfileFragment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="@string/txtEmailAddressProfileFragment"
-            android:textSize="15sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtViewPhoneNumberProfileFragment" />
-
-        <ImageView
-            android:id="@+id/imgUserProfileFragment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtViewEmailProfileFragment"
-            tools:src="@tools:sample/avatars" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <Button
+        android:id="@+id/button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="25dp"
+        android:text="@string/txtSaveProfileInfo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewPhoneNumberProfileFragment" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
