@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.capstone.R
 import com.example.capstone.models.Product
-import com.example.capstone.models.Profile
 import com.example.capstone.ui.adapters.ProductAdapter
 import com.example.capstone.ui.viewmodels.ProductViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -35,6 +34,7 @@ class ProductsFragment : Fragment() {
 
         initView()
         observeProducts()
+        observeErrors()
     }
 
     private fun initView() {
@@ -72,10 +72,20 @@ class ProductsFragment : Fragment() {
         })
     }
 
+    private fun observeErrors() {
+        viewModel.errorText.observe(viewLifecycleOwner, {
+            Snackbar.make(
+                this.requireView(),
+                it.toString(),
+                Snackbar.LENGTH_SHORT
+            ).show()
+        })
+    }
+
     private fun addToCart(product: Product) {
         viewModel.addProductToCart(
             product,
-            Profile("0640117445", "acdaling@gmail.com", "https://images.acdaling.nl/me.jpg")
+            "064012345"
         )
         observeAdditions(product.title)
     }

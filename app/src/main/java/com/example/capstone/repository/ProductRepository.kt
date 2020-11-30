@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.capstone.api.ProductApi
 import com.example.capstone.models.Product
-import com.example.capstone.models.Profile
 import com.example.capstone.services.ProductApiService
 
 class ProductRepository {
@@ -18,32 +17,43 @@ class ProductRepository {
     val product: LiveData<Product> get() = _product
     val products: LiveData<List<Product>> get() = _products
     val cart: LiveData<List<Product>> get() = _cart
-    val success = MutableLiveData<Boolean>()
+
 
     /**
      * This method will give a list of products available
      */
     suspend fun getProducts() {
-        val result = productApiService.getProducts()
-        _products.value = result
+        try {
+            val result = productApiService.getProducts()
+            _products.value = result
+        } catch (error: Throwable) {
+            throw ProductError("Something went wrong with getting the products", error)
+        }
     }
 
     /**
      * This method will give a specific product based on the id given
      */
     suspend fun getProduct(product_id: Int) {
-        val result = productApiService.getProduct(product_id)
-        _product.value = result
+        try {
+            val result = productApiService.getProduct(product_id)
+            _product.value = result
+        } catch (error: Throwable) {
+            throw ProductError("Getting the single product failed", error)
+        }
     }
 
     /**
      * This method will add a product to the user cart and return the list
      * without this product
      */
-    suspend fun addProductToCart(product: Product, profile: Profile) {
-        val result = productApiService.addProductToCart(product.id, profile.phone_number)
-        success.value = true
-        _cart.value = result
+    suspend fun addProductToCart(product: Product, phone_number: String) {
+        try {
+            val result = productApiService.addProductToCart(product.id, phone_number)
+            _cart.value = result
+        } catch (error: Throwable) {
+            throw ProductError("Adding the product to cart failed", error)
+        }
     }
 
     /**
@@ -51,14 +61,22 @@ class ProductRepository {
      * without this product
      */
     suspend fun removeProductToCart(product_id: Int, profile_id: Int) {
-        val result = productApiService.removeProductFromCart(product_id, profile_id)
-        success.value = true
-        _cart.value = result
+        try {
+            val result = productApiService.removeProductFromCart(product_id, profile_id)
+            _cart.value = result
+        } catch (error: Throwable) {
+            throw ProductError("Removing the product from cart failed", error)
+        }
     }
 
     suspend fun getCart() {
-        val result = productApiService.getCart(0)
-        success.value = true
-        _cart.value = result
+        try {
+            val result = productApiService.getCart(0)
+            _cart.value = result
+        } catch (error: Throwable) {
+            throw ProductError("Getting the cart failed", error)
+        }
     }
+
+    class ProductError(message: String, cause: Throwable) : Throwable(message, cause)
 }

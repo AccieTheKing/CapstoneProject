@@ -16,21 +16,21 @@ class ProfileRepository {
 
     val profile: LiveData<Profile> get() = _profile
 
-    suspend fun getProfile(phone_number: Int) {
+    suspend fun getProfile(phone_number: String) {
         try {
             val result = profileApiService.getProfile(phone_number)
             _profile.value = result
         } catch (error: Throwable) {
-            throw ProfileApiError("Profile api error", error)
+            throw ProfileApiError("Profile fetching error", error)
         }
     }
 
-    suspend fun updateProfile(phone_number: Int) {
+    suspend fun updateProfile(phone_number: String, email_address: String) {
         try {
-            val result = profileApiService.updateProfile(phone_number)
+            val result = profileApiService.updateProfile(phone_number, email_address)
             _profile.value = result
         } catch (error: Throwable) {
-            throw ProfileApiError("Profile api error", error)
+            throw ProfileApiError("Profile updating error", error)
         }
     }
 
