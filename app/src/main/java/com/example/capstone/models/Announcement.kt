@@ -13,4 +13,11 @@ data class Announcement(
     @SerializedName("title") var title: String,
     @SerializedName("banner_image") var banner_image: String,
     @SerializedName("text") var text: String,
+    @SerializedName("page_detail") var page_detail: AnnouncementDetails,
+)
+
+data class AnnouncementDetails(
+    @SerializedName("title") var title: String,
+    @SerializedName("text") var text: String,
+    @SerializedName("date") var date: String,
 )
