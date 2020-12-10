@@ -2,7 +2,7 @@ package com.example.capstone.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.capstone.api.ProfileApi
+import com.example.capstone.api.Api
 import com.example.capstone.models.Profile
 import com.example.capstone.services.ProfileApiService
 
@@ -11,7 +11,7 @@ import com.example.capstone.services.ProfileApiService
  * and provides it to business logic layer.
  */
 class ProfileRepository {
-    private val profileApiService: ProfileApiService = ProfileApi.createApi()
+    private val profileApiService: ProfileApiService = Api.createProfileApi()
     private val _profile: MutableLiveData<Profile> = MutableLiveData()
 
     val profile: LiveData<Profile> get() = _profile

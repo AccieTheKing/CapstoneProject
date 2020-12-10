@@ -2,12 +2,12 @@ package com.example.capstone.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.capstone.api.ProductApi
+import com.example.capstone.api.Api
 import com.example.capstone.models.Product
 import com.example.capstone.services.ProductApiService
 
 class ProductRepository {
-    private val productApiService: ProductApiService = ProductApi.createApi()
+    private val productApiService: ProductApiService = Api.createProductApi()
 
     private val _product: MutableLiveData<Product> = MutableLiveData() // single products
     private val _products: MutableLiveData<List<Product>> =
