@@ -8,17 +8,18 @@
     tools:context=".ui.AnnouncementDetailFragment">
 
     <ImageView
-        android:id="@+id/backdropImage"
+        android:id="@+id/backdropImageAnnouncement"
         android:layout_width="414dp"
         android:layout_height="200dp"
         android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@+id/scrollViewAnnouncementDetail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/avatars" />
 
     <ScrollView
-        android:id="@+id/scrollView2"
+        android:id="@+id/scrollViewAnnouncementDetail"
         android:layout_width="410dp"
         android:layout_height="0dp"
         android:layout_marginBottom="5dp"
@@ -26,7 +27,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/backdropImage"
+        app:layout_constraintTop_toBottomOf="@+id/backdropImageAnnouncement"
         app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
@@ -68,6 +69,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
+        app:layout_constraintTop_toBottomOf="@+id/scrollViewAnnouncementDetail" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
