@@ -4,8 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +17,9 @@ import com.example.capstone.models.Announcement
 import com.example.capstone.ui.adapters.AnnouncementAdapter
 import com.example.capstone.ui.viewmodels.AnnouncementViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
+
+const val ANNOUNCEMENT_KEY = "ANNOUNCEMENT_KEY"
+const val ANNOUNCEMENT_BUNDLE_KEY = "ANNOUNCEMENT_BUNDLE_KEY"
 
 class HomeFragment : Fragment() {
     private val announcements = arrayListOf<Announcement>()
@@ -56,6 +62,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun goToAnnouncement(announcement: Announcement) {
-
+        setFragmentResult(ANNOUNCEMENT_KEY, bundleOf(Pair(ANNOUNCEMENT_BUNDLE_KEY, announcement.id)))
+        findNavController().navigate(R.id.action_homeFragment_to_announcementDetailFragment)
     }
 }
