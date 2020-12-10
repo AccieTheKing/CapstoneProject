@@ -5,7 +5,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface AnnouncementApiService {
-    @GET("/announcements")
+    @GET("/announcement")
     suspend fun getAnnouncements(): List<Announcement>
 
     @GET("/announcement/{announcementID}")

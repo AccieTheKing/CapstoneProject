@@ -46,7 +46,7 @@
     </fragment>
     <fragment
         android:id="@+id/announcementDetailFragment"
-        android:name="com.example.capstone.AnnouncementDetailFragment"
+        android:name="com.example.capstone.ui.AnnouncementDetailFragment"
         android:label="fragment_announcement_detail"
         tools:layout="@layout/fragment_announcement_detail" >
         <action

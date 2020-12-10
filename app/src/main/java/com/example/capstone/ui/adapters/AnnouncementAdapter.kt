@@ -10,7 +10,10 @@ import com.example.capstone.R
 import com.example.capstone.models.Announcement
 import kotlinx.android.synthetic.main.item_announcement.view.*
 
-class AnnouncementAdapter(private val announcements: List<Announcement>, private val onClick: (Announcement) -> Unit) :
+class AnnouncementAdapter(
+    private val announcements: List<Announcement>,
+    private val onClick: (Announcement) -> Unit
+) :
     RecyclerView.Adapter<AnnouncementAdapter.ViewHolder>() {
     private lateinit var context: Context
 
@@ -40,7 +43,8 @@ class AnnouncementAdapter(private val announcements: List<Announcement>, private
         fun bind(announcement: Announcement) {
             itemView.txtAnnouncementTitle.text = announcement.title
             itemView.txtAnnouncementText.text = announcement.text
-            Glide.with(itemView.context).load(announcement.banner_image).into(itemView.imgAnnouncement)
+            Glide.with(itemView.context).load(announcement.banner_image)
+                .into(itemView.imgAnnouncement)
         }
     }
 }
