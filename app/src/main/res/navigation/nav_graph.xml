@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_homeFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_announcementDetailFragment"
+            app:destination="@id/announcementDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/menuFragment"
@@ -39,6 +42,15 @@
             app:destination="@id/menuFragment" />
         <action
             android:id="@+id/action_profileFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/announcementDetailFragment"
+        android:name="com.example.capstone.AnnouncementDetailFragment"
+        android:label="fragment_announcement_detail"
+        tools:layout="@layout/fragment_announcement_detail" >
+        <action
+            android:id="@+id/action_announcementDetailFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
 </navigation>
