@@ -36,7 +36,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun initView() {
-        announcementAdapter = AnnouncementAdapter(announcements)
+        announcementAdapter = AnnouncementAdapter(announcements, ::goToAnnouncement)
         rcHomeFragment.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
         rcHomeFragment.adapter = announcementAdapter
         DividerItemDecoration(
@@ -53,5 +53,9 @@ class HomeFragment : Fragment() {
             announcements.addAll(it)
             announcementAdapter.notifyDataSetChanged()
         })
+    }
+
+    private fun goToAnnouncement(announcement: Announcement) {
+
     }
 }
