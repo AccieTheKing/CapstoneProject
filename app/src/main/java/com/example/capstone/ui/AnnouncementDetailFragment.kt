@@ -30,13 +30,16 @@ class AnnouncementDetailFragment : Fragment() {
 
     private fun observeAnnouncementDetail() {
         setFragmentResultListener(ANNOUNCEMENT_KEY) { _, bundle ->
-            val announcementID = bundle.getString(ANNOUNCEMENT_BUNDLE_KEY).toString().toInt()
-            viewModel.getAnnouncementDetails(announcementID)
+            bundle.getString(ANNOUNCEMENT_BUNDLE_KEY)?.let {
+                val announcementID = it.toInt()
+                viewModel.getAnnouncementDetails(announcementID)
+            }
         }
 
         viewModel.announcement.observe(viewLifecycleOwner, {
             txtViewAnnouncementDetailTitle.text = it.page_detail.title
-            txtViewAnnouncementText.text = it.page_detail.date
+            txtViewAnnouncementText.text = it.page_detail.text
+            txtViewPublishDate.text = getString(R.string.txtViewPublishDate, it.page_detail.date)
 
             context?.let { it1 ->
                 Glide.with(it1).load(it.banner_image).into(backdropImageAnnouncement)

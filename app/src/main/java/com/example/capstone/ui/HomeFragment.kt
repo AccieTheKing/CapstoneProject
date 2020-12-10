@@ -62,7 +62,10 @@ class HomeFragment : Fragment() {
     }
 
     private fun goToAnnouncement(announcement: Announcement) {
-        setFragmentResult(ANNOUNCEMENT_KEY, bundleOf(Pair(ANNOUNCEMENT_BUNDLE_KEY, announcement.id)))
+        setFragmentResult(
+            ANNOUNCEMENT_KEY,
+            bundleOf(Pair(ANNOUNCEMENT_BUNDLE_KEY, announcement.id.toString()))
+        )
         findNavController().navigate(R.id.action_homeFragment_to_announcementDetailFragment)
     }
 }
