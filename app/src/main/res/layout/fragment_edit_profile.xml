@@ -52,7 +52,7 @@
     <ImageView
         android:id="@+id/fragmentProfileDetailImage"
         android:layout_width="0dp"
-        android:layout_height="237dp"
+        android:layout_height="210dp"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toTopOf="@+id/txtViewEmailProfileFragment"
         app:layout_constraintEnd_toEndOf="parent"

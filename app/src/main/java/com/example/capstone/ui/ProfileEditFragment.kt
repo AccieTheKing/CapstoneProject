@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.capstone.R
+import com.example.capstone.repository.ProfileRepository
 import com.example.capstone.ui.viewmodels.ProfileViewModel
 import kotlinx.android.synthetic.main.fragment_edit_profile.*
 
@@ -32,6 +34,9 @@ class ProfileEditFragment : Fragment() {
         Glide.with(this)
             .load("https://images.pexels.com/photos/417074/pexels-photo-417074.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260")
             .into(fragmentProfileDetailImage)
+        // Set email address and phone number if these already given
+        txtViewEmailProfileFragment.setText(ProfileRepository.emailAddress)
+        txtViewPhoneNumberProfileFragment.setText(ProfileRepository.phoneNumber)
 
         btnSaveProfileInfo.setOnClickListener {
             updateProfileInfo()
@@ -41,9 +46,13 @@ class ProfileEditFragment : Fragment() {
     private fun updateProfileInfo() {
         val profileEmail = txtViewEmailProfileFragment.text.toString()
         val profilePhoneNumber = txtViewPhoneNumberProfileFragment.text.toString()
-        viewModel.updateProfile(profilePhoneNumber, profileEmail)
 
-        findNavController().navigate(R.id.action_profileEditFragment_to_homeFragment)
+        if (profileEmail.isNotEmpty() && profilePhoneNumber.isNotEmpty()) {
+            viewModel.updateProfile(profilePhoneNumber, profileEmail)
+            findNavController().navigate(R.id.action_profileEditFragment_to_profileFragment)
+        } else {
+            Toast.makeText(context, R.string.txtCheckFields, Toast.LENGTH_SHORT).show()
+        }
     }
 
 }
