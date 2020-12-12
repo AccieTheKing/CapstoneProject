@@ -9,10 +9,11 @@
 
     <ImageView
         android:id="@+id/imgUserProfileFragment"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="15dp"
-        app:layout_constraintBottom_toTopOf="@+id/txtViewEmailProfileFragment"
+        android:layout_width="0dp"
+        android:layout_height="165dp"
+        android:layout_marginBottom="15dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@+id/txtEmailAddressValue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtTitleViewHomeFragment"
@@ -26,44 +27,37 @@
         android:textAlignment="center"
         android:textSize="40sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/imgUserProfileFragment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/txtViewPhoneNumberProfileFragment"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/txtEmailAddressValue"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName|phone"
-        android:text="@string/txtPhoneNumberProfileFragment"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtViewEmailProfileFragment" />
-
-    <EditText
-        android:id="@+id/txtViewEmailProfileFragment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-        android:inputType="textPersonName|textEmailAddress"
-        android:text="@string/txtEmailAddressProfileFragment"
-        app:layout_constraintBottom_toTopOf="@+id/txtViewPhoneNumberProfileFragment"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="TextView"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/txtViewPhoneNumberProfile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgUserProfileFragment" />
 
-    <Button
-        android:id="@+id/btnSaveProfileInfo"
+    <TextView
+        android:id="@+id/txtViewPhoneNumberProfile"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="25dp"
-        android:text="@string/txtSaveProfileInfo"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="TextView"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtViewPhoneNumberProfileFragment" />
+        app:layout_constraintTop_toBottomOf="@+id/txtEmailAddressValue" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

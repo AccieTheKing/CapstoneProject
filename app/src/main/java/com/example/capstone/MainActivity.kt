@@ -3,6 +3,7 @@ package com.example.capstone
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -13,12 +14,12 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
-    val profileIconId = R.id.personIconNav // profile nav item id
-    val homeIconId = R.id.homeIconNav // home nav item id
-    val menuIconId = R.id.menuIconNav // menu nav item id
+    private val profileIconId = R.id.personIconNav // profile nav item id
+    private val homeIconId = R.id.homeIconNav // home nav item id
+    private val menuIconId = R.id.menuIconNav // menu nav item id
 
     // Map object that maps id to corresponding fragment
-    val navMapObject: Map<Int, Fragment> = mapOf(
+    private val navMapObject: Map<Int, Fragment> = mapOf(
         profileIconId to ProfileFragment(),
         homeIconId to HomeFragment(),
         menuIconId to MenuFragment()
@@ -28,7 +29,24 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         navController = findNavController(R.id.nav_host_fragment)
-        bottomNavigationView.selectedItemId = R.id.homeIconNav // sets the home as active
+
+        observeNavigation()
+    }
+
+    private fun observeNavigation() {
+        bottomNavigationView.selectedItemId = homeIconId // sets the home as active
+
+        val showBottomTabOnPagesList = listOf(
+            R.id.profileFragment, R.id.menuFragment, R.id.homeFragment
+        )
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (destination.id in showBottomTabOnPagesList) {
+                showNavigationBar(true)
+            } else {
+                showNavigationBar(false)
+            }
+        }
 
         // listens to clicks bottom nav
         bottomNavigationView.setOnNavigationItemSelectedListener {
@@ -82,5 +100,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         return 0 // TODO: error fragment does not exist
+    }
+
+    private fun showNavigationBar(show: Boolean) {
+        bottomNavigationView.isVisible = show
     }
 }

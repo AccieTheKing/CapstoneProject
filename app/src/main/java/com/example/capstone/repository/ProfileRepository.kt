@@ -14,6 +14,11 @@ class ProfileRepository {
     private val profileApiService: ProfileApiService = Api.createProfileApi()
     private val _profile: MutableLiveData<Profile> = MutableLiveData()
 
+    companion object {
+        var phoneNumber: String = ""
+        var emailAddress: String = ""
+    }
+
     val profile: LiveData<Profile> get() = _profile
 
     suspend fun getProfile(phone_number: String) {
@@ -27,8 +32,15 @@ class ProfileRepository {
 
     suspend fun updateProfile(phone_number: String, email_address: String) {
         try {
-            val result = profileApiService.updateProfile(phone_number, email_address)
+            val result = profileApiService.updateProfile(
+                ProfileApiService.SendUser(
+                    phone_number,
+                    email_address
+                )
+            )
             _profile.value = result
+            phoneNumber = phone_number
+            emailAddress = email_address
         } catch (error: Throwable) {
             throw ProfileApiError("Profile updating error", error)
         }

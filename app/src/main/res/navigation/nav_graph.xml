@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/profileEditFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -14,11 +14,14 @@
             android:id="@+id/action_homeFragment_to_menuFragment"
             app:destination="@id/menuFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
-        <action
             android:id="@+id/action_homeFragment_to_announcementDetailFragment"
             app:destination="@id/announcementDetailFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_profileEditFragment2"
+            app:destination="@id/profileEditFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/menuFragment"
@@ -51,6 +54,14 @@
         tools:layout="@layout/fragment_announcement_detail" >
         <action
             android:id="@+id/action_announcementDetailFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileEditFragment"
+        android:name="com.example.capstone.ui.ProfileEditFragment"
+        android:label="ProfileEditFragment" >
+        <action
+            android:id="@+id/action_profileEditFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
 </navigation>
