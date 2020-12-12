@@ -5,9 +5,11 @@
 
     <!--  Profile Fragment  -->
     <string name="txtTitleProfileFragment">Profile</string>
+    <string name="txtPhoneNumberStringTemplateProfileFragment">Phone number: %s</string>
+    <string name="txtEmailAddressStringTemplateProfileFragment">Email address: %s</string>
     <string name="txtPhoneNumberProfileFragment">Phone number</string>
     <string name="txtEmailAddressProfileFragment">Email address</string>
-    <string name="txtSaveProfileInfo">Save profile changes</string>
+    <string name="txtSaveProfileInfo">Save profile and continue</string>
 
     <!--  Menu Fragment  -->
     <string name="txtTitleMenuFragment">Menu</string>
@@ -21,4 +23,11 @@
     <string name="txtSubTitleCartFragment">Here are all your selected products</string>
     <string name="txtCheckoutCartFragment">Buy</string>
     <string name="txtCheckoutHintText">Amount</string>
+
+    <!--  Announcement detail Fragment  -->
+    <string name="txtViewPublishDate">Last updated: %s</string>
+
+    <!--  Overall Fragments  -->
+    <string name="txtloadingvalue">Loading</string>
+
 </resources>
