@@ -1,20 +1,29 @@
 const router = require('express').Router();
 
 const all_products_list = require('./data/products.json'); // all the products available
-let cart = []; // user cart
+
+// user cart
+let userCart = {
+  phoneNumber: null,
+  cart: [],
+};
 
 router.get('/', async (req, res) => {
   res.json(all_products_list);
 });
 
-router.get('/cart/:profileid', async (req, res) => {
-  res.json(cart);
+router.get('/cart/:phoneNumber', async (req, res) => {
+  if (!userCart.phoneNumber) {
+    userCart.phoneNumber = req.params.phoneNumber;
+    res.json(userCart.cart);
+  }
 });
 
-router.post('/cart/add/:productid/:profileid', async (req, res) => {
+router.post('/cart/add/:productid/:phoneNumber', async (req, res) => {
   const selected_product = all_products_list[req.params.productid]; // user selected product
+
   updateProductWhenFound(selected_product).then(() => {
-    res.json(cart);
+    res.json(userCart.cart);
   });
 });
 
@@ -26,13 +35,13 @@ router.post('/cart/add/:productid/:profileid', async (req, res) => {
  */
 const updateProductWhenFound = async (product) => {
   // find product index
-  const foundProductIndex = cart.findIndex(
+  const foundProductIndex = userCart.cart.findIndex(
     (searchingProduct) => searchingProduct.id === product.id
   );
 
   // if no product found in cart, it returns -1
   if (foundProductIndex > -1) {
-    const product = cart[foundProductIndex];
+    const product = userCart.cart[foundProductIndex];
     const original_product = all_products_list[product.id]; // original product, without any changes
 
     // modify the amount of the product
@@ -47,9 +56,9 @@ const updateProductWhenFound = async (product) => {
       price: updatedProductWithNewAmount.amount * original_product.price,
     };
 
-    cart[foundProductIndex] = updatedProduct; // replace the stored product with our modified one
+    userCart.cart[foundProductIndex] = updatedProduct; // replace the stored product with our modified one
   } else {
-    cart.push(product); // add product into the cart
+    userCart.cart.push(product); // add product into the cart
   }
 };
 

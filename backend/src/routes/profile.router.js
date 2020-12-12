@@ -2,7 +2,7 @@ const router = require('express').Router();
 const profile_dataset = require('./data/profile.json');
 
 let profile = profile_dataset;
-let active_customers = [];
+let currentCustomer = null;
 
 router.get('/:phone_number', async (req, res) => {
   const profile_data = active_customers.find(
@@ -22,7 +22,7 @@ router.post('/save', async (req, res) => {
     email_address: emailAddress,
   };
 
-  active_customers.push(addCustomer); // push into array for later use
+  currentCustomer = addCustomer; // push into array for later use
 
   res.json(addCustomer); // send user
 });
