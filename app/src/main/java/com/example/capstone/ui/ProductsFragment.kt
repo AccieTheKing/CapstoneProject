@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.capstone.R
 import com.example.capstone.models.Product
+import com.example.capstone.repository.ProfileRepository
 import com.example.capstone.ui.adapters.ProductAdapter
 import com.example.capstone.ui.viewmodels.ProductViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -85,7 +86,7 @@ class ProductsFragment : Fragment() {
     private fun addToCart(product: Product) {
         viewModel.addProductToCart(
             product,
-            "064012345"
+            ProfileRepository.phoneNumber
         )
         observeAdditions(product.title)
     }

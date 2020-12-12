@@ -46,10 +46,10 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
-    fun getCart() {
+    fun getCart(phoneNumber: Int) {
         viewModelScope.launch {
             try {
-                productRepository.getCart()
+                productRepository.getCart(phoneNumber)
             } catch (error: ProductRepository.ProductError) {
                 _errorText.value = error.message
                 success.value = false

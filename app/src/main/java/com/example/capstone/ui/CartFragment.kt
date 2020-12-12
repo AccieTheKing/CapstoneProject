@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.capstone.R
 import com.example.capstone.models.Product
+import com.example.capstone.repository.ProfileRepository
 import com.example.capstone.ui.adapters.CheckoutAdapter
 import com.example.capstone.ui.viewmodels.ProductViewModel
 import kotlinx.android.synthetic.main.fragment_cart.*
@@ -51,7 +52,7 @@ class CartFragment : Fragment() {
     }
 
     private fun observeCart() {
-        viewModel.getCart()
+        viewModel.getCart(ProfileRepository.phoneNumber.toInt())
         viewModel.cart.observe(viewLifecycleOwner, {
             products.clear()
             products.addAll(it)
