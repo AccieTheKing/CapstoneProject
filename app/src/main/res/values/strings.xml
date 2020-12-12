@@ -5,10 +5,13 @@
 
     <!--  Profile Fragment  -->
     <string name="txtTitleProfileFragment">Profile</string>
-    <string name="txtPhoneNumberStringTemplateProfileFragment">Phone number: %s</string>
-    <string name="txtEmailAddressStringTemplateProfileFragment">Email address: %s</string>
     <string name="txtPhoneNumberProfileFragment">Phone number</string>
     <string name="txtEmailAddressProfileFragment">Email address</string>
+    <string name="txtEditProfileDetails">Edit profile details</string>
+
+    <!--  Profile Edit Fragment  -->
+    <string name="txtPhoneNumberStringTemplateProfileFragment">Phone number: %s</string>
+    <string name="txtEmailAddressStringTemplateProfileFragment">Email address: %s</string>
     <string name="txtSaveProfileInfo">Save profile and continue</string>
 
     <!--  Menu Fragment  -->
@@ -29,5 +32,6 @@
 
     <!--  Overall Fragments  -->
     <string name="txtloadingvalue">Loading</string>
+    <string name="txtCheckFields">Check empty fields</string>
 
 </resources>
