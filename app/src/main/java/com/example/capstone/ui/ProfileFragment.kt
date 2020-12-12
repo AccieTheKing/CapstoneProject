@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.capstone.R
 import com.example.capstone.repository.ProfileRepository
@@ -42,6 +43,10 @@ class ProfileFragment : Fragment() {
             txtViewPhoneNumberProfile.text =
                 getString(R.string.txtEmailAddressStringTemplateProfileFragment, it.email_address)
         })
+
+        btnEditProfileDetails.setOnClickListener {
+            findNavController().navigate(R.id.action_profileFragment_to_profileEditFragment)
+        }
     }
 
 }
