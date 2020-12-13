@@ -26,6 +26,7 @@
     <!--  Cart detail Fragment  -->
     <string name="txtTitleCartFragment">Cart</string>
     <string name="txtSubTitleCartFragment">Here are all your selected products</string>
+    <string name="txtTotalPriceCartFragment">Total price: %s</string>
     <string name="txtCheckoutCartFragment">Buy</string>
     <string name="txtCheckoutHintText">Amount</string>
 
