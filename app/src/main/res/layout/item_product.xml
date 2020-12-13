@@ -39,7 +39,7 @@
                 android:id="@+id/txtProductPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="16dp"
                 android:text="TextView" />
 
@@ -51,9 +51,10 @@
                     android:id="@+id/btnMoreInfo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:text="@string/txtMoreInfoPMenuFragment"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/btnBuyAddProduct"
+                    app:layout_constraintBottom_toTopOf="@+id/btnBuyAddProduct"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -61,14 +62,13 @@
                     android:id="@+id/btnBuyAddProduct"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginBottom="1dp"
+                    android:layout_marginBottom="5dp"
                     android:layout_weight="1"
                     android:text="@string/txtBtnAddToMenu"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/btnMoreInfo"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btnMoreInfo" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
