@@ -13,14 +13,22 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/cart/:phoneNumber', async (req, res) => {
-  if (!userCart.phoneNumber) {
-    userCart.phoneNumber = req.params.phoneNumber;
-    res.json(userCart.cart);
-  }
+  userCart = {
+    ...userCart,
+    phoneNumber: req.params.phoneNumber,
+  };
+
+  res.json(userCart.cart);
 });
 
 router.post('/cart/add/:productid/:phoneNumber', async (req, res) => {
   const selected_product = all_products_list[req.params.productid]; // user selected product
+
+  // fill the user with the phone number
+  userCart = {
+    ...userCart,
+    phoneNumber: req.params.phoneNumber,
+  };
 
   updateProductWhenFound(selected_product).then(() => {
     res.json(userCart.cart);
@@ -41,7 +49,7 @@ const updateProductWhenFound = async (product) => {
 
   // if no product found in cart, it returns -1
   if (foundProductIndex > -1) {
-    const product = userCart.cart[foundProductIndex];
+    const product = userCart.cart[foundProductIndex]; // found product in the cart
     const original_product = all_products_list[product.id]; // original product, without any changes
 
     // modify the amount of the product

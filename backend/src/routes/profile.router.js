@@ -2,13 +2,10 @@ const router = require('express').Router();
 const profile_dataset = require('./data/profile.json');
 
 let profile = profile_dataset;
-let currentCustomer = null;
+let currentCustomer = {};
 
 router.get('/:phone_number', async (req, res) => {
-  const profile_data = active_customers.find(
-    (el) => el.phone_number === req.params.phone_number
-  );
-  res.json(profile_data);
+  res.json(currentCustomer);
 });
 
 router.post('/save', async (req, res) => {
@@ -24,7 +21,7 @@ router.post('/save', async (req, res) => {
 
   currentCustomer = addCustomer; // push into array for later use
 
-  res.json(addCustomer); // send user
+  res.json(currentCustomer); // send user
 });
 
 module.exports = router;
