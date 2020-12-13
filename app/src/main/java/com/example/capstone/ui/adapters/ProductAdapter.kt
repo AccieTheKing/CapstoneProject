@@ -8,11 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.capstone.R
 import com.example.capstone.models.Product
-import com.example.capstone.models.Profile
 import kotlinx.android.synthetic.main.item_product.view.*
-import kotlin.reflect.KFunction0
 
-class ProductAdapter(private val products: List<Product>, private val onClick: (Product) -> Unit) :
+class ProductAdapter(
+    private val products: List<Product>,
+    private val addToCart: (Product) -> Unit,
+    private val moreInfo: (Product) -> Unit
+) :
     RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
     private lateinit var context: Context
 
@@ -35,14 +37,16 @@ class ProductAdapter(private val products: List<Product>, private val onClick: (
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         init {
             itemView.btnBuyAddProduct.setOnClickListener {
-                onClick(products[adapterPosition])
+                addToCart(products[adapterPosition])
+            }
+            itemView.btnMoreInfo.setOnClickListener {
+                moreInfo(products[adapterPosition])
             }
         }
 
         fun bind(product: Product) {
-            itemView.txtViewProductDescription.text = product.description
             itemView.txtViewProductTitle.text = product.title
-            itemView.txtProductPrice.text = String.format("%s", product.price)
+            itemView.txtProductPrice.text = String.format("Price: %s", product.price)
             Glide.with(itemView.context).load(product.banner_image)
                 .into(itemView.imgPreviewProduct)
         }
