@@ -54,7 +54,7 @@ class CartFragment : Fragment() {
     private fun observeCart() {
         viewModel.getCart(ProfileRepository.phoneNumber.toInt())
         viewModel.cart.observe(viewLifecycleOwner, {
-            if (it.isNotEmpty()) { // if any products selected
+            if (it.size > 0) { // if any products selected
                 txtSubTitleCartFragment.isVisible = false
             }
             products.clear()
@@ -62,9 +62,11 @@ class CartFragment : Fragment() {
             checkoutAdapter.notifyDataSetChanged()
         })
         viewModel.price.observe(viewLifecycleOwner, {
-            txtTotalPriceCartFragment.text =
-                getString(R.string.txtTotalPriceCartFragment, it.toString()) // set total price
-            btnBuyProducts.isVisible = true // show checkout button
+           if(it > 0.00){
+               txtTotalPriceCartFragment.text =
+                   getString(R.string.txtTotalPriceCartFragment, it.toString()) // set total price
+               btnBuyProducts.isVisible = true // show checkout button
+           }
         })
     }
 }
