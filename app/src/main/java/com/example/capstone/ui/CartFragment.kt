@@ -54,9 +54,12 @@ class CartFragment : Fragment() {
     private fun observeCart() {
         viewModel.getCart(ProfileRepository.phoneNumber.toInt())
         viewModel.cart.observe(viewLifecycleOwner, {
+            if (it.isNotEmpty()) txtSubTitleCartFragment.isVisible = false
             products.clear()
             products.addAll(it)
             checkoutAdapter.notifyDataSetChanged()
         })
+
+
     }
 }
