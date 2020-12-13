@@ -12,6 +12,11 @@ router.get('/', async (req, res) => {
   res.json(all_products_list);
 });
 
+router.get('/:productID', async (req, res) => {
+  const selectedUserProduct = all_products_list[req.params.productID];
+  res.json(selectedUserProduct);
+});
+
 router.get('/cart/:phoneNumber', async (req, res) => {
   userCart = {
     ...userCart,
