@@ -4,8 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.setFragmentResult
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -16,6 +19,10 @@ import com.example.capstone.ui.adapters.ProductAdapter
 import com.example.capstone.ui.viewmodels.ProductViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_products.*
+
+
+const val PRODUCT_KEY = "PRODUCT_KEY"
+const val PRODUCT_BUNDLE_KEY = "PRODUCT_BUNDLE_KEY"
 
 class ProductsFragment : Fragment() {
     private val products = arrayListOf<Product>()
@@ -39,7 +46,7 @@ class ProductsFragment : Fragment() {
     }
 
     private fun initView() {
-        productAdapter = ProductAdapter(products, ::addToCart)
+        productAdapter = ProductAdapter(products, ::addToCart, ::goToProductDetail)
         rcProductsFragment.layoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
         rcProductsFragment.adapter = productAdapter
         rcProductsFragment.addItemDecoration(
@@ -81,6 +88,14 @@ class ProductsFragment : Fragment() {
                 Snackbar.LENGTH_SHORT
             ).show()
         })
+    }
+
+    private fun goToProductDetail(product: Product) {
+        setFragmentResult(
+            PRODUCT_KEY,
+            bundleOf(Pair(PRODUCT_BUNDLE_KEY, product.id.toString()))
+        )
+        findNavController().navigate(R.id.action_menuFragment_to_productDetailFragment)
     }
 
     private fun addToCart(product: Product) {
