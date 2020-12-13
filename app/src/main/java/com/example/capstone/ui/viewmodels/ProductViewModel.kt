@@ -17,6 +17,7 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
     val products = productRepository.products
     val product = productRepository.product
     val cart = productRepository.cart
+    val price = productRepository.price
 
     val success = MutableLiveData<Boolean>()
     val errorText: LiveData<String> get() = _errorText

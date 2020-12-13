@@ -5,10 +5,7 @@ const all_products_list = require('./data/products.json'); // all the products a
 // user cart
 let userCart = {
   phoneNumber: null,
-  cart: {
-    items: [],
-    totalPrice: 0,
-  },
+  cart: [],
 };
 
 router.get('/', async (req, res) => {
@@ -57,7 +54,7 @@ const updateProductWhenFound = async (product) => {
 
   // if no product found in cart, it returns -1
   if (foundProductIndex > -1) {
-    const product = userCart.cart.items[foundProductIndex]; // found product in the cart
+    const product = userCart.cart[foundProductIndex]; // found product in the cart
     const original_product = all_products_list[product.id]; // original product, without any changes
 
     // modify the amount of the product
@@ -72,9 +69,9 @@ const updateProductWhenFound = async (product) => {
       price: updatedProductWithNewAmount.amount * original_product.price,
     };
 
-    userCart.cart.items[foundProductIndex] = updatedProduct; // replace the stored product with our modified one
+    userCart.cart[foundProductIndex] = updatedProduct; // replace the stored product with our modified one
   } else {
-    userCart.cart.items.push(product); // add product into the cart
+    userCart.cart.push(product); // add product into the cart
   }
 };
 

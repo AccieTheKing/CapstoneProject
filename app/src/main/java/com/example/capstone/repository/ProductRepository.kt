@@ -13,10 +13,12 @@ class ProductRepository {
     private val _products: MutableLiveData<List<Product>> =
         MutableLiveData() // list of all products
     private val _cart: MutableLiveData<List<Product>> = MutableLiveData() // user cart
+    private val _price: MutableLiveData<Double> = MutableLiveData() // price of total products
 
     val product: LiveData<Product> get() = _product
     val products: LiveData<List<Product>> get() = _products
     val cart: LiveData<List<Product>> get() = _cart
+    val price: LiveData<Double> get() = _price
 
 
     /**
@@ -72,7 +74,14 @@ class ProductRepository {
     suspend fun getCart(phoneNumber: Int) {
         try {
             val result = productApiService.getCart(phoneNumber)
+            var totalPrice = 0.00;
             _cart.value = result
+            result.forEach { product ->
+                if (product.price.toString().isNotEmpty()) {
+                    totalPrice += product.price
+                }
+            }
+            _price.value = totalPrice
         } catch (error: Throwable) {
             throw ProductError("Getting the cart failed", error)
         }
