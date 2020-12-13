@@ -16,8 +16,8 @@
 
     <!--  Menu Fragment  -->
     <string name="txtTitleMenuFragment">Menu</string>
-    <string name="txtBtnAddToMenu">Add</string>
-    <string name="txtMoreInfoPMenuFragment">More info</string>
+    <string name="txtBtnAddToMenu">Add to cart</string>
+    <string name="txtMoreInfoPMenuFragment">Product info</string>
 
     <!--  Product detail Fragment  -->
     <string name="txtTitleProductDetailFragment">Products</string>
