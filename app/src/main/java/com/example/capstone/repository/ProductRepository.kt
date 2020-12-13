@@ -60,7 +60,7 @@ class ProductRepository {
      * This method will remove a product out of the user cart and return the list
      * without this product
      */
-    suspend fun removeProductToCart(product_id: Int, phoneNumber: Int) {
+    suspend fun removeProductToCart(product_id: Int, phoneNumber: String) {
         try {
             val result = productApiService.removeProductFromCart(product_id, phoneNumber)
             _cart.value = result

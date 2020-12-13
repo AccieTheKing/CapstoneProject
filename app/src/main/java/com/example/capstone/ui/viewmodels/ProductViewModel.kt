@@ -70,7 +70,7 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
-    fun removeProductToCart(product_id: Int, profile_id: Int) {
+    fun removeProductToCart(product_id: Int, profile_id: String) {
         viewModelScope.launch {
             try {
                 productRepository.removeProductToCart(product_id, profile_id)

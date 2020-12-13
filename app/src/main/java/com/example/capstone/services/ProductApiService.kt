@@ -15,15 +15,15 @@ interface ProductApiService {
     @GET("/product/cart/{id}")
     suspend fun getCart(@Path("id") id: Int): List<Product>
 
-    @POST("/product/cart/add/{product_id}/{profile_id}")
+    @POST("/product/cart/add/{product_id}/{phoneNumber}")
     suspend fun addProductToCart(
         @Path("product_id") product_id: Int,
-        @Path("profile_id") profile_id: String
+        @Path("phoneNumber") phoneNumber: String
     ): List<Product>
 
     @POST("/product/cart/remove/{product_id}/{profile_id}")
     suspend fun removeProductFromCart(
         @Path("product_id") product_id: Int,
-        @Path("profile_id") profile_id: Int
+        @Path("phoneNumber") phoneNumber: String
     ): List<Product>
 }
