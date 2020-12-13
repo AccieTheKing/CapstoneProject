@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun observeNavigation() {
-        bottomNavigationView.selectedItemId = homeIconId // sets the home as active
+        bottomNavigationView.selectedItemId = profileIconId // sets the active menu item
 
         val showBottomTabOnPagesList = listOf(
             R.id.profileFragment, R.id.menuFragment, R.id.homeFragment
