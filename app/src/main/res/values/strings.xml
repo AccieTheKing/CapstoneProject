@@ -17,9 +17,11 @@
     <!--  Menu Fragment  -->
     <string name="txtTitleMenuFragment">Menu</string>
     <string name="txtBtnAddToMenu">Add</string>
+    <string name="txtMoreInfoPMenuFragment">More info</string>
 
     <!--  Product detail Fragment  -->
     <string name="txtTitleProductDetailFragment">Products</string>
+    <string name="txtPriceProductDetailFragment">Price: %s</string>
 
     <!--  Cart detail Fragment  -->
     <string name="txtTitleCartFragment">Cart</string>
