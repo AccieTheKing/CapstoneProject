@@ -1,4 +1,4 @@
-package com.example.capstone.ui
+package com.example.capstone.ui.screens.splash
 
 import android.content.Intent
 import android.os.Bundle

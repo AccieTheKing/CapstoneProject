@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.capstone.ui.HomeFragment"
+        android:name="com.example.capstone.ui.screens.announcement.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/menuFragment"
-        android:name="com.example.capstone.ui.MenuFragment"
+        android:name="com.example.capstone.ui.screens.menu.MenuFragment"
         android:label="fragment_menu"
         tools:layout="@layout/fragment_menu" >
         <action
@@ -40,7 +40,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.capstone.ui.ProfileFragment"
+        android:name="com.example.capstone.ui.screens.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" >
         <action
@@ -55,7 +55,7 @@
     </fragment>
     <fragment
         android:id="@+id/announcementDetailFragment"
-        android:name="com.example.capstone.ui.AnnouncementDetailFragment"
+        android:name="com.example.capstone.ui.screens.announcement.AnnouncementDetailFragment"
         android:label="fragment_announcement_detail"
         tools:layout="@layout/fragment_announcement_detail" >
         <action
@@ -64,7 +64,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileEditFragment"
-        android:name="com.example.capstone.ui.ProfileEditFragment"
+        android:name="com.example.capstone.ui.screens.profile.ProfileEditFragment"
         android:label="ProfileEditFragment" >
         <action
             android:id="@+id/action_profileEditFragment_to_homeFragment"
@@ -75,7 +75,7 @@
     </fragment>
     <fragment
         android:id="@+id/productDetailFragment"
-        android:name="com.example.capstone.ui.ProductDetailFragment"
+        android:name="com.example.capstone.ui.screens.menu.product.ProductDetailFragment"
         android:label="fragment_product_detail"
         tools:layout="@layout/fragment_product_detail" >
         <action

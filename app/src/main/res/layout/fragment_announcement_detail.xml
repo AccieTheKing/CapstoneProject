@@ -5,7 +5,7 @@
     android:id="@+id/announcementDetailFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.AnnouncementDetailFragment">
+    tools:context=".ui.screens.announcement.AnnouncementDetailFragment">
 
     <ImageView
         android:id="@+id/backdropImageAnnouncement"

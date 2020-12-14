@@ -1,4 +1,4 @@
-package com.example.capstone.ui
+package com.example.capstone.ui.screens.menu
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.capstone.R
+import com.example.capstone.ui.screens.menu.cart.CartFragment
+import com.example.capstone.ui.screens.menu.product.ProductsFragment
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fragment_menu.*
 

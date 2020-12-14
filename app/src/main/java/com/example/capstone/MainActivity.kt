@@ -7,9 +7,9 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import com.example.capstone.ui.HomeFragment
-import com.example.capstone.ui.MenuFragment
-import com.example.capstone.ui.ProfileFragment
+import com.example.capstone.ui.screens.announcement.HomeFragment
+import com.example.capstone.ui.screens.menu.MenuFragment
+import com.example.capstone.ui.screens.profile.ProfileFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
