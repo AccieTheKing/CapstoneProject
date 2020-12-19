@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.example.capstone.R
@@ -25,17 +24,22 @@ class AnnouncementDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        observeAnnouncementDetailResult()
         observeAnnouncementDetail()
     }
 
-    private fun observeAnnouncementDetail() {
-        setFragmentResultListener(ANNOUNCEMENT_KEY) { _, bundle ->
-            bundle.getString(ANNOUNCEMENT_BUNDLE_KEY)?.let {
-                val announcementID = it.toInt()
-                viewModel.getAnnouncementDetails(announcementID)
+    private fun observeAnnouncementDetailResult() {
+        arguments?.let {
+            val announcementID = it.getString(ANNOUNCEMENT_BUNDLE_KEY)
+            if (announcementID != null) {
+                val id = announcementID.toInt()
+                println()
+                viewModel.getAnnouncementDetails(id)
             }
         }
+    }
 
+    private fun observeAnnouncementDetail() {
         viewModel.announcement.observe(viewLifecycleOwner, {
             txtViewAnnouncementDetailTitle.text = it.page_detail.title
             txtViewAnnouncementText.text = it.page_detail.text
