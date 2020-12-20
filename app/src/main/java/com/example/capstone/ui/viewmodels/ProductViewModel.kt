@@ -71,10 +71,22 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
-    fun removeProductToCart(product_id: Int, profile_id: String) {
+    fun increaseProductAmount(product_id: Int, phoneNumber: String) {
         viewModelScope.launch {
             try {
-                productRepository.removeProductToCart(product_id, profile_id)
+                productRepository.increaseProductAmount(product_id, phoneNumber)
+            } catch (error: ProductRepository.ProductError) {
+                _errorText.value = error.message
+                success.value = false
+                Log.e("Error product to cart", error.cause.toString())
+            }
+        }
+    }
+
+    fun decreaseProductAmount(product_id: Int, phoneNumber: String) {
+        viewModelScope.launch {
+            try {
+                productRepository.decreaseProductAmount(product_id, phoneNumber)
             } catch (error: ProductRepository.ProductError) {
                 _errorText.value = error.message
                 success.value = false

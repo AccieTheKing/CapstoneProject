@@ -39,7 +39,7 @@ class CartFragment : Fragment() {
 
     private fun initView() {
         btnBuyProducts.isVisible = showCheckout
-        checkoutAdapter = CheckoutAdapter(products)
+        checkoutAdapter = CheckoutAdapter(products, ::increaseProductAmount, ::decreaseProductAmount)
         rcCheckoutList.layoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
         rcCheckoutList.adapter = checkoutAdapter
         rcCheckoutList.addItemDecoration(
@@ -68,5 +68,14 @@ class CartFragment : Fragment() {
                btnBuyProducts.isVisible = true // show checkout button
            }
         })
+    }
+
+
+    private fun increaseProductAmount(product: Product) {
+        viewModel.increaseProductAmount(product.id, ProfileRepository.phoneNumber)
+    }
+
+    private fun decreaseProductAmount(product: Product) {
+        viewModel.decreaseProductAmount(product.id, ProfileRepository.phoneNumber)
     }
 }

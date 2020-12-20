@@ -21,8 +21,19 @@ interface ProductApiService {
         @Path("phoneNumber") phoneNumber: String
     ): List<Product>
 
-    @POST("/product/cart/remove/{product_id}/{profile_id}")
-    suspend fun removeProductFromCart(
+
+    /**
+     * Incremental and decremental endpoints
+     */
+    @POST("/product/cart/increase/{product_id}/{phoneNumber}")
+    suspend fun increaseProductAmount(
+        @Path("product_id") product_id: Int,
+        @Path("phoneNumber") phoneNumber: String
+    ): List<Product>
+
+
+    @POST("/product/cart/decrease/{product_id}/{phoneNumber}")
+    suspend fun decreaseProductAmount(
         @Path("product_id") product_id: Int,
         @Path("phoneNumber") phoneNumber: String
     ): List<Product>
