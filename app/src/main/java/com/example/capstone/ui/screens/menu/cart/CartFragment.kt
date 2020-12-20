@@ -54,19 +54,19 @@ class CartFragment : Fragment() {
     private fun observeCart() {
         viewModel.getCart(ProfileRepository.phoneNumber.toInt())
         viewModel.cart.observe(viewLifecycleOwner, {
-            if (it.size > 0) { // if any products selected
-                txtSubTitleCartFragment.isVisible = false
-            }
+            txtSubTitleCartFragment.isVisible = it.isEmpty()
             products.clear()
             products.addAll(it)
             checkoutAdapter.notifyDataSetChanged()
         })
         viewModel.price.observe(viewLifecycleOwner, {
-           if(it > 0.00){
-               txtTotalPriceCartFragment.text =
-                   getString(R.string.txtTotalPriceCartFragment, it.toString()) // set total price
-               btnBuyProducts.isVisible = true // show checkout button
-           }
+            if (it > 0.00) {
+                txtTotalPriceCartFragment.text =
+                    getString(R.string.txtTotalPriceCartFragment, it.toString()) // set total price
+                btnBuyProducts.isVisible = true // show checkout button
+            } else{
+                btnBuyProducts.isVisible
+            }
         })
     }
 
