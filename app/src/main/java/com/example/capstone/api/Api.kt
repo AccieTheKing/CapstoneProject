@@ -59,5 +59,17 @@ class Api {
             // Return the Retrofit ProductApiService
             return productApi.create(ProductApiService::class.java)
         }
+
+        fun createSplashApi(): SplashApiService {
+            // Create the Retrofit instance
+            val splashApi = Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .client(okHttpClient)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+
+            // Return the Retrofit ProductApiService
+            return splashApi.create(SplashApiService::class.java)
+        }
     }
 }
