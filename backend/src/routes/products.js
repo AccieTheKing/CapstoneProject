@@ -182,10 +182,7 @@ async function updateProduct(action, product, original_product) {
 
     const { productIndex } = await checkIfProductExists(product);
     userCart.cart[productIndex] = updatedProduct;
-  } else {
-    console.log('verwijderen', userCart.cart);
-    removeProduct(product);
-  }
+  } else removeProduct(product);
 }
 
 module.exports = router;
