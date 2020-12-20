@@ -64,8 +64,10 @@ class CartFragment : Fragment() {
                 txtTotalPriceCartFragment.text =
                     getString(R.string.txtTotalPriceCartFragment, it.toString()) // set total price
                 btnBuyProducts.isVisible = true // show checkout button
+                txtTotalPriceCartFragment.isVisible = true
             } else{
-                btnBuyProducts.isVisible
+                btnBuyProducts.isVisible = false
+                txtTotalPriceCartFragment.isVisible = false
             }
         })
     }
