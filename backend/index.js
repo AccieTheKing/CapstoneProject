@@ -9,15 +9,12 @@ const port = process.env.SERVER_PORT || 5000;
 app.use(express.json());
 app.use(cors());
 
-const announcementsRouter = require('./src/routes/announcements');
-const productsRouter = require('./src/routes/products');
-const profileRouter = require('./src/routes/profile.router');
-const splashScreenRouter = require('./src/routes/splash.router');
+const appRouter = require('./src/routes');
 
-app.use('/announcement', announcementsRouter);
-app.use('/product', productsRouter);
-app.use('/profile', profileRouter);
-app.use('/splashscreen', splashScreenRouter);
+app.use('/announcement', appRouter.announcementRouter);
+app.use('/product', appRouter.productRouter);
+app.use('/profile', appRouter.profileRouter);
+app.use('/splashscreen', appRouter.splashRouter);
 
 database.once('open', () =>
   console.log('connection with the database successful')

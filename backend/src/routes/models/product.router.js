@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const all_products_list = require('./data/products.json'); // all the products available
+const all_products_list = require('../data/products.json'); // all the products available
 
 const PRODUCT_ASSIGNMENT_METHODS = {
   ADD: 'ADD',
