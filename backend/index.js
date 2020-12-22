@@ -1,6 +1,7 @@
 require('dotenv').config();
 const cors = require('cors');
 const express = require('express');
+const database = require('./src/database');
 const app = express();
 
 const port = process.env.SERVER_PORT || 5000;
@@ -17,5 +18,9 @@ app.use('/announcement', announcementsRouter);
 app.use('/product', productsRouter);
 app.use('/profile', profileRouter);
 app.use('/splashscreen', splashScreenRouter);
+
+database.once('open', () =>
+  console.log('connection with the database successful')
+);
 
 app.listen(port, () => console.log(`App listens to port ${port}`));
