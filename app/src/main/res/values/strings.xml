@@ -13,6 +13,7 @@
     <string name="txtPhoneNumberStringTemplateProfileFragment">Phone number: %s</string>
     <string name="txtEmailAddressStringTemplateProfileFragment">Email address: %s</string>
     <string name="txtSaveProfileInfo">Save profile and continue</string>
+    <string name="txtSendVerificationMail">Send email with code</string>
 
     <!--  Menu Fragment  -->
     <string name="txtTitleMenuFragment">Menu</string>
@@ -32,9 +33,14 @@
 
     <!--  Announcement detail Fragment  -->
     <string name="txtViewPublishDate">Last updated: %s</string>
+    <!--  Verification Fragment  -->
+    <string name="txtVerificationTitle">Verification</string>
+    <string name="btnSendVerification">Send verification code</string>
 
     <!--  Overall Fragments  -->
     <string name="txtloadingvalue">Loading</string>
     <string name="txtCheckFields">Check empty fields</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
