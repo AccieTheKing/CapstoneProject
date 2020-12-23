@@ -13,6 +13,7 @@ import com.example.capstone.services.ProfileApiService
 class ProfileRepository {
     private val profileApiService: ProfileApiService = Api.createProfileApi()
     private val _profile: MutableLiveData<Profile> = MutableLiveData()
+    private val _success: MutableLiveData<Boolean> = MutableLiveData()
 
     companion object {
         var phoneNumber: String = ""
@@ -20,6 +21,7 @@ class ProfileRepository {
     }
 
     val profile: LiveData<Profile> get() = _profile
+    val success: LiveData<Boolean> get() = _success
 
     suspend fun getProfile(phone_number: String) {
         try {
@@ -43,6 +45,45 @@ class ProfileRepository {
             emailAddress = email_address
         } catch (error: Throwable) {
             throw ProfileApiError("Profile updating error", error)
+        }
+    }
+
+    suspend fun getVerificationCode(phone_number: String, email_address: String) {
+        try {
+            profileApiService.getVerificationCode(
+                ProfileApiService.SendUser(
+                    phone_number, email_address
+                )
+            )
+            phoneNumber = phone_number
+            emailAddress = email_address
+        } catch (error: Throwable) {
+            throw ProfileApiError("Sending verification code error", error)
+        }
+    }
+
+    suspend fun sendVerificationCode(code: Int, phone_number: String, email_address: String) {
+        try {
+            val result = profileApiService.sendVerificationCode(
+                ProfileApiService.SendVerificationCode(
+                    verificationCode = code,
+                    phone_number = phone_number,
+                    email_address = email_address
+                )
+            )
+
+            phoneNumber = phone_number
+            emailAddress = email_address
+
+            if (result.email_address.isNotBlank()) {
+                _profile.value = result
+                _success.value = true
+            } else {
+                _success.value = false
+            }
+
+        } catch (error: Throwable) {
+            throw ProfileApiError("Sending verification code error", error)
         }
     }
 
