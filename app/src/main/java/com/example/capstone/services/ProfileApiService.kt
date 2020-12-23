@@ -13,6 +13,18 @@ interface ProfileApiService {
     @POST("/profile/save")
     suspend fun updateProfile(@Body profile: SendUser): Profile
 
+    @POST("/profile/getverificationcode")
+    suspend fun getVerificationCode(@Body profile: SendUser): String
+
+    @POST("/profile/sendverificationcode")
+    suspend fun sendVerificationCode(@Body code: SendVerificationCode): Profile
+
+    data class SendVerificationCode(
+        var verificationCode: Int,
+        var phone_number: String,
+        var email_address: String
+    )
+
     data class SendUser(
         var phone_number: String,
         var email_address: String
