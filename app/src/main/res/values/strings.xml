@@ -33,8 +33,10 @@
 
     <!--  Announcement detail Fragment  -->
     <string name="txtViewPublishDate">Last updated: %s</string>
+
     <!--  Verification Fragment  -->
     <string name="txtVerificationTitle">Verification</string>
+    <string name="txtVerificationHint">Your verification code</string>
     <string name="btnSendVerification">Send verification code</string>
 
     <!--  Overall Fragments  -->
