@@ -42,12 +42,11 @@ class VerificationFragment : Fragment() {
                 if (validToken) findNavController().navigate(R.id.action_verificationFragment_to_profileFragment)
                 else view?.let { it1 ->
                     Snackbar.make(
-                        it1.rootView,
-                        "Wrong token",
+                        it1,
+                        "Wrong token! Check your mail for your code",
                         Snackbar.LENGTH_SHORT
                     ).show()
                 }
-//            findNavController().popBackStack()
             })
         }
     }
