@@ -1,6 +1,7 @@
 const router = require('express').Router();
-const mailer = require('nodemailer');
+const ProfileModel = require('../../database/models/profile.model');
 const profile_dataset = require('../data/profile.json');
+const sendEmail = require('../helper/index');
 
 let profile = profile_dataset;
 let currentCustomer = {};
@@ -15,33 +16,46 @@ router.post('/save', async (req, res) => {
   const phoneNumber = req.body.phone_number; // user phone number
   const emailAddress = req.body.email_address; // user email address
 
-  // send mail with defined transport object
-  let info = await transporter.sendMail({
-    from: `"Its a test😎 👻" ${process.env.MY_EMAIL_ADDRESS}`, // sender address
-    to: `${emailAddress}`, // list of receivers
-    subject: 'Hello ✔', // Subject line
-    text: 'Hello world?', // plain text body
+router.post('/sendverificationcode', async (req, res) => {
+  const foundUser = await ProfileModel.findOne({
+    email: req.body.email_address,
   });
 
-  // update user profile
-  const addCustomer = {
-    ...profile,
-    phone_number: phoneNumber,
-    email_address: emailAddress,
-  };
-
-  currentCustomer = addCustomer; // push into array for later use
-
-  res.json(currentCustomer); // send user
+  if (foundUser && foundUser.verificationCode === req.body.verificationCode) {
+    const signedInUser = {
+      ...profile,
+      phone_number: foundUser.phoneNumber,
+      email_address: foundUser.email,
+    };
+    res.json(signedInUser);
+  } else res.json({ msg: 'wrong verification token' });
 });
 
-async function initProfileRouter() {
-  mailer.createTransport({
-    service: process.env.EMAIL_SERVICES,
-    auth: {
-      user: process.env.MY_EMAIL_ADDRESS,
-      pass: process.env.MY_EMAIL_PASSWORD,
-    },
-  });
-}
+router.post('/getverificationcode', async (req, res) => {
+  const phoneNumber = req.body.phone_number; // user phone number
+  const emailAddress = req.body.email_address; // user email address
+
+  // check if user already exist in database
+  ProfileModel.findOne({
+    email: emailAddress,
+  })
+    .then(async (profile) => {
+      if (profile) {
+        sendEmail(profile.email, profile.verificationCode);
+        res.status(200);
+      } else {
+        // create and save user if not existing with the verification code
+        const randomVerificationCode = Math.floor(1000 + Math.random() * 9000); // generates random 4 digit number
+        const respone = await sendEmail(emailAddress, randomVerificationCode); // send email to client
+        const test = new ProfileModel({
+          email: emailAddress,
+          phoneNumber: phoneNumber,
+          verificationCode: randomVerificationCode,
+        });
+        test.save();
+      }
+    })
+    .catch((error) => console.log(error));
+});
+
 module.exports = router;
