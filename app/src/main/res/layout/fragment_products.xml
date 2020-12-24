@@ -5,7 +5,7 @@
     android:id="@+id/flProductsContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.screens.menu.product.ProductsFragment" >
+    tools:context=".ui.screens.menu.product.ProductsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcProductsFragment"
