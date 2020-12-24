@@ -14,16 +14,14 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
     private val _errorText: MutableLiveData<String> = MutableLiveData()
 
     val profile = profileRepository.profile
-    val success = MutableLiveData<Boolean>()
+    val success = profileRepository.success
     val errorText: LiveData<String> get() = _errorText
 
-    fun getProfile(phone_number: String) {
+    fun getProfile() {
         viewModelScope.launch {
             try {
-                profileRepository.getProfile(phone_number)
-                success.value = true
+                profileRepository.getProfile()
             } catch (error: ProfileRepository.ProfileApiError) {
-                success.value = false
                 _errorText.value = error.message
                 Log.e("Getting profile error", error.cause.toString())
             }
@@ -34,9 +32,7 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
         viewModelScope.launch {
             try {
                 profileRepository.updateProfile(phone_number, email_address)
-                success.value = true
             } catch (error: ProfileRepository.ProfileApiError) {
-                success.value = false
                 _errorText.value = error.message
                 Log.e("Updating profile error", error.cause.toString())
             }
@@ -47,9 +43,7 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
         viewModelScope.launch {
             try {
                 profileRepository.getVerificationCode(phone_number, email_address)
-                success.value = true
             } catch (error: ProfileRepository.ProfileApiError) {
-                success.value = false
                 _errorText.value = error.message
                 Log.e("Wrong verification code", error.cause.toString())
             }
@@ -60,9 +54,7 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
         viewModelScope.launch {
             try {
                 profileRepository.sendVerificationCode(code.toInt(), phone_number, email_address)
-                success.value = true
             } catch (error: ProfileRepository.ProfileApiError) {
-                success.value = false
                 _errorText.value = error.message
                 Log.e("Wrong verification code", error.cause.toString())
             }

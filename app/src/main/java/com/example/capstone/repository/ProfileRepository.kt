@@ -18,14 +18,15 @@ class ProfileRepository {
     companion object {
         var phoneNumber: String = ""
         var emailAddress: String = ""
+        var authToken: String = ""
     }
 
     val profile: LiveData<Profile> get() = _profile
     val success: LiveData<Boolean> get() = _success
 
-    suspend fun getProfile(phone_number: String) {
+    suspend fun getProfile() {
         try {
-            val result = profileApiService.getProfile(phone_number)
+            val result = profileApiService.getProfile()
             _profile.value = result
         } catch (error: Throwable) {
             throw ProfileApiError("Profile fetching error", error)
@@ -75,13 +76,14 @@ class ProfileRepository {
             phoneNumber = phone_number
             emailAddress = email_address
 
-            if (result.email_address.isNotBlank()) {
-                _profile.value = result
+            if (result.authToken !== null && result.msg == null) {
+                authToken = result.authToken!!
                 _success.value = true
+            } else if (result.authToken == null && result.msg !== null) {
+                _success.value = false
             } else {
                 _success.value = false
             }
-
         } catch (error: Throwable) {
             throw ProfileApiError("Invalid verification code!", error)
         }
