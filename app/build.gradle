@@ -6,6 +6,10 @@ plugins {
     id 'com.google.gms.google-services'
 }
 
+def apikeyPropertiesFile = rootProject.file("app/src/main/java/com/example/capstone/apikey.properties")
+def apikeyProperties = new Properties()
+apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
+
 android {
     compileSdkVersion 30
     buildToolsVersion "29.0.3"
@@ -16,7 +20,7 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
-
+        buildConfigField("String", "DEVELOPMENT_SERVER_API", apikeyProperties['DEVELOPMENT_SERVER_API'])
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
