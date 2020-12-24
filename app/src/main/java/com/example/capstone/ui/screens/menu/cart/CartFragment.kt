@@ -39,7 +39,8 @@ class CartFragment : Fragment() {
 
     private fun initView() {
         btnBuyProducts.isVisible = showCheckout
-        checkoutAdapter = CheckoutAdapter(products, ::increaseProductAmount, ::decreaseProductAmount)
+        checkoutAdapter =
+            CheckoutAdapter(products, ::increaseProductAmount, ::decreaseProductAmount)
         rcCheckoutList.layoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
         rcCheckoutList.adapter = checkoutAdapter
         rcCheckoutList.addItemDecoration(
@@ -65,7 +66,7 @@ class CartFragment : Fragment() {
                     getString(R.string.txtTotalPriceCartFragment, it.toString()) // set total price
                 btnBuyProducts.isVisible = true // show checkout button
                 txtTotalPriceCartFragment.isVisible = true
-            } else{
+            } else {
                 btnBuyProducts.isVisible = false
                 txtTotalPriceCartFragment.isVisible = false
             }

@@ -68,6 +68,7 @@ class ProductRepository {
             throw ProductError("Increasing the product amount failed", error)
         }
     }
+
     suspend fun decreaseProductAmount(product_id: Int, phoneNumber: String) {
         try {
             val result = productApiService.decreaseProductAmount(product_id, phoneNumber)
@@ -77,7 +78,6 @@ class ProductRepository {
             throw ProductError("Decreasing the product amount", error)
         }
     }
-
 
 
     suspend fun getCart(phoneNumber: Int) {
@@ -90,7 +90,7 @@ class ProductRepository {
         }
     }
 
-    private fun calculateTotalPrice(cart: List<Product>): Double{
+    private fun calculateTotalPrice(cart: List<Product>): Double {
         var totalPrice = 0.00
         cart.forEach { product ->
             if (product.price.toString().isNotEmpty()) {
