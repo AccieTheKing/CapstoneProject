@@ -19,3 +19,13 @@ local.properties
 backend/node_modules/
 
 backend/dist/
+
+gradle/wrapper/gradle-wrapper.properties
+
+app/google-services.json
+
+backend/.env
+
+app/apikey.properties
+
+app/src/main/java/com/example/capstone/apikey.properties
