@@ -24,7 +24,7 @@ class Api {
                 override fun intercept(chain: Interceptor.Chain): Response {
                     val original: Request = chain.request()
                     val request: Request = original.newBuilder()
-                        .header("Authorization", "Bearer ${ProfileRepository.authToken}")
+                        .header("Authorization", ProfileRepository.authToken)
                         .method(original.method, original.body)
                         .build()
                     return chain.proceed(request)
