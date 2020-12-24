@@ -5,7 +5,6 @@ const profile_dataset = require('../data/profile.json');
 const sendEmail = require('../helper/index');
 
 let profile = profile_dataset;
-let currentCustomer = {};
 
 const retrieveTokenAndDecode = async (authHeader) => {
   if (authHeader) {
@@ -32,10 +31,6 @@ router.get('/', async (req, res) => {
     console.log(`Something went wrong with getting the profile: ${error}`);
   }
 });
-
-router.post('/save', async (req, res) => {
-  const phoneNumber = req.body.phone_number; // user phone number
-  const emailAddress = req.body.email_address; // user email address
 
 router.post('/sendverificationcode', async (req, res) => {
   const foundUser = await ProfileModel.findOne({
