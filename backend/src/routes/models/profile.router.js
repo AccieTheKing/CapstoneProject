@@ -27,50 +27,56 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/sendverificationcode', async (req, res) => {
-  const foundUser = await ProfileModel.findOne({
-    email: req.body.email_address,
-  });
+  try {
+    const foundUser = await ProfileModel.findOne({
+      email: req.body.email_address,
+    });
 
-  if (foundUser && foundUser.verificationCode === req.body.verificationCode) {
-    const signedInUser = {
-      ...profileMockData,
-      phone_number: foundUser.phoneNumber,
-      email_address: foundUser.email,
-    };
+    if (foundUser && foundUser.verificationCode === req.body.verificationCode) {
+      const signedInUser = {
+        ...profileMockData,
+        phone_number: foundUser.phoneNumber,
+        email_address: foundUser.email,
+      };
 
-    const token = await encodeObjectAndRetrievToken(signedInUser);
-    res.json({ authToken: token });
-  } else res.json({ msg: 'wrong verification token' });
+      const token = await encodeObjectAndRetrievToken(signedInUser);
+      res.json({ authToken: token });
+    } else res.json({ msg: 'wrong verification token' });
+  } catch (error) {
+    // res.json({ msg: 'wrong verification token' });
+    console.log(`something went wrong ${error}`);
+  }
 });
 
 router.post('/getverificationcode', async (req, res) => {
   const phoneNumber = req.body.phone_number; // user phone number
   const emailAddress = req.body.email_address; // user email address
+  try {
+    // check if user already exist in database
+    const foundProfile = await ProfileModel.findOne({
+      email: emailAddress,
+    });
+    sendEmail(foundProfile.email, foundProfile.verificationCode);
+    res.status(200);
+  } catch (error) {
+    // create and save user if not existing with the verification code
+    const randomVerificationCode = Math.floor(1000 + Math.random() * 8999); // generates random 4 digit number
+    // send email to client with code for verification
+    const emailResponseID = await sendEmail(
+      emailAddress,
+      randomVerificationCode
+    );
 
-  // check if user already exist in database
-  ProfileModel.findOne({
-    email: emailAddress,
-  })
-    .then(async (profile) => {
-      if (profile) {
-        sendEmail(profile.email, profile.verificationCode);
-        res.status(200);
-      } else {
-        // create and save user if not existing with the verification code
-        const randomVerificationCode = Math.floor(1000 + Math.random() * 8999); // generates random 4 digit number
-        const emailResponseID = await sendEmail(
-          emailAddress,
-          randomVerificationCode
-        ); // send email to client
-        const profileModel = new ProfileModel({
-          email: emailAddress,
-          phoneNumber: phoneNumber,
-          verificationCode: randomVerificationCode,
-        });
-        profileModel.save();
-      }
-    })
-    .catch((error) => console.log(error));
+    const profileModel = new ProfileModel({
+      email: emailAddress,
+      phoneNumber: phoneNumber,
+      verificationCode: randomVerificationCode,
+    });
+    profileModel.save();
+    console.log(
+      `something went wrong with retrieving verification code: ${error}`
+    );
+  }
 });
 
 module.exports = router;
