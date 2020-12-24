@@ -45,7 +45,7 @@ router.post('/getverificationcode', async (req, res) => {
         res.status(200);
       } else {
         // create and save user if not existing with the verification code
-        const randomVerificationCode = Math.floor(1000 + Math.random() * 9000); // generates random 4 digit number
+        const randomVerificationCode = Math.floor(1000 + Math.random() * 8999); // generates random 4 digit number
         const respone = await sendEmail(emailAddress, randomVerificationCode); // send email to client
         const test = new ProfileModel({
           email: emailAddress,
