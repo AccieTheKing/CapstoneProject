@@ -9,7 +9,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.capstone.R
-import com.example.capstone.repository.ProfileRepository
 import com.example.capstone.ui.viewmodels.ProfileViewModel
 import kotlinx.android.synthetic.main.fragment_profile.*
 
@@ -35,7 +34,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun observeProfile() {
-        viewModel.getProfile(ProfileRepository.phoneNumber)
+        viewModel.getProfile()
         viewModel.profile.observe(viewLifecycleOwner, {
             Glide.with(this).load(it.profile_picture).into(imgUserProfileFragment)
             txtEmailAddressValue.text =
