@@ -14,7 +14,6 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
     private val _errorText: MutableLiveData<String> = MutableLiveData()
 
     val profile = profileRepository.profile
-    val tokenSuccess = profileRepository.success
     val success = MutableLiveData<Boolean>()
     val errorText: LiveData<String> get() = _errorText
 
