@@ -83,7 +83,7 @@ class ProfileRepository {
             }
 
         } catch (error: Throwable) {
-            throw ProfileApiError("Sending verification code error", error)
+            throw ProfileApiError("Invalid verification code!", error)
         }
     }
 
