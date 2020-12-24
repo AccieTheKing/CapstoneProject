@@ -1,17 +1,9 @@
 const router = require('express').Router();
-const jwt = require('jsonwebtoken');
 const ProfileModel = require('../../database/models/profile.model');
 const profile_dataset = require('../data/profile.json');
-const sendEmail = require('../helper/index');
+const { sendEmail, retrieveTokenAndDecode } = require('../helper/index');
 
 let profile = profile_dataset;
-
-const retrieveTokenAndDecode = async (authHeader) => {
-  if (authHeader) {
-    const token = authHeader.split('Bearer ')[1];
-    return jwt.verify(token, process.env.JWT_SECRET);
-  } else return false;
-};
 
 router.get('/', async (req, res) => {
   try {

@@ -22,4 +22,15 @@ const sendEmail = async (emailAddress, verificationCode) => {
   });
 };
 
-module.exports = sendEmail;
+const jwt = require('jsonwebtoken');
+const retrieveTokenAndDecode = async (authHeader) => {
+  if (authHeader) {
+    const token = authHeader.split('Bearer ')[1];
+    return jwt.verify(token, process.env.JWT_SECRET);
+  } else return false;
+};
+
+module.exports = {
+  sendEmail,
+  retrieveTokenAndDecode,
+};
