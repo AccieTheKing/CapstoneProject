@@ -35,15 +35,27 @@ class VerificationFragment : Fragment() {
 
             btnSendVerification.setOnClickListener {
                 val code = txtFieldVerificationCode.text.toString()
-                viewModel.sendVerificationCode(code, userPhoneNumber, userEmail)
+                if (code.isNotEmpty()) {
+                    viewModel.sendVerificationCode(code, userPhoneNumber, userEmail)
+                } else {
+                    view?.let { it1 ->
+                        Snackbar.make(
+                            it1,
+                            "Code can not be empty!",
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                    }
+                }
             }
 
             viewModel.success.observe(viewLifecycleOwner, { validToken ->
                 if (validToken) findNavController().navigate(R.id.action_verificationFragment_to_profileFragment)
-                else view?.let { it1 ->
+            })
+            viewModel.errorText.observe(viewLifecycleOwner, { errorText ->
+                view?.let { it1 ->
                     Snackbar.make(
                         it1,
-                        "Wrong token! Check your mail for your code",
+                        errorText,
                         Snackbar.LENGTH_SHORT
                     ).show()
                 }
