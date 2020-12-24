@@ -1,9 +1,11 @@
 const router = require('express').Router();
 const ProfileModel = require('../../database/models/profile.model');
-const profile_dataset = require('../data/profile.json');
-const { sendEmail, retrieveTokenAndDecode } = require('../helper/index');
-
-let profile = profile_dataset;
+const profileMockData = require('../data/profile.json');
+const {
+  sendEmail,
+  retrieveTokenAndDecode,
+  encodeObjectAndRetrievToken,
+} = require('../helper/index');
 
 router.get('/', async (req, res) => {
   try {
@@ -12,7 +14,7 @@ router.get('/', async (req, res) => {
       phoneNumber: user.phone_number,
     }).then((person) => {
       const signedInUser = {
-        ...profile,
+        ...profileMockData,
         phone_number: person.phoneNumber,
         email_address: person.email,
       };
@@ -31,12 +33,12 @@ router.post('/sendverificationcode', async (req, res) => {
 
   if (foundUser && foundUser.verificationCode === req.body.verificationCode) {
     const signedInUser = {
-      ...profile,
+      ...profileMockData,
       phone_number: foundUser.phoneNumber,
       email_address: foundUser.email,
     };
 
-    const token = `Bearer ${jwt.sign(signedInUser, process.env.JWT_SECRET)}`;
+    const token = await encodeObjectAndRetrievToken(signedInUser);
     res.json({ authToken: token });
   } else res.json({ msg: 'wrong verification token' });
 });

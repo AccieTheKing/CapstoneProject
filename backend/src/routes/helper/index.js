@@ -1,4 +1,5 @@
 const mailer = require('nodemailer');
+const jwt = require('jsonwebtoken');
 
 const transporter = mailer.createTransport({
   service: process.env.EMAIL_SERVICES,
@@ -22,7 +23,6 @@ const sendEmail = async (emailAddress, verificationCode) => {
   });
 };
 
-const jwt = require('jsonwebtoken');
 const retrieveTokenAndDecode = async (authHeader) => {
   if (authHeader) {
     const token = authHeader.split('Bearer ')[1];
@@ -30,7 +30,12 @@ const retrieveTokenAndDecode = async (authHeader) => {
   } else return false;
 };
 
+const encodeObjectAndRetrievToken = async (object) => {
+  return `Bearer ${jwt.sign(object, process.env.JWT_SECRET)}`;
+};
+
 module.exports = {
   sendEmail,
   retrieveTokenAndDecode,
+  encodeObjectAndRetrievToken,
 };
