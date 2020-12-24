@@ -27,7 +27,9 @@ router.post('/sendverificationcode', async (req, res) => {
       phone_number: foundUser.phoneNumber,
       email_address: foundUser.email,
     };
-    res.json(signedInUser);
+
+    const token = `Bearer ${jwt.sign(signedInUser, process.env.JWT_SECRET)}`;
+    res.json({ authToken: token });
   } else res.json({ msg: 'wrong verification token' });
 });
 
