@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const jwt = require('jsonwebtoken');
 const ProfileModel = require('../../database/models/profile.model');
 const profile_dataset = require('../data/profile.json');
 const sendEmail = require('../helper/index');
@@ -6,10 +7,30 @@ const sendEmail = require('../helper/index');
 let profile = profile_dataset;
 let currentCustomer = {};
 
-initProfileRouter();
+const retrieveTokenAndDecode = async (authHeader) => {
+  if (authHeader) {
+    const token = authHeader.split('Bearer ')[1];
+    return jwt.verify(token, process.env.JWT_SECRET);
+  } else return false;
+};
 
-router.get('/:phone_number', async (req, res) => {
-  res.json(currentCustomer);
+router.get('/', async (req, res) => {
+  try {
+    const user = await retrieveTokenAndDecode(req.headers.authorization);
+    ProfileModel.findOne({
+      phoneNumber: user.phone_number,
+    }).then((person) => {
+      const signedInUser = {
+        ...profile,
+        phone_number: person.phoneNumber,
+        email_address: person.email,
+      };
+      res.json(signedInUser).status(200);
+    });
+  } catch (error) {
+    res.json({ msg: 'No or invalid token found' }).status(401);
+    console.log(`Something went wrong with getting the profile: ${error}`);
+  }
 });
 
 router.post('/save', async (req, res) => {
