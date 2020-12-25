@@ -63,7 +63,7 @@ class CartFragment : Fragment() {
         viewModel.price.observe(viewLifecycleOwner, {
             if (it > 0.00) {
                 txtTotalPriceCartFragment.text =
-                    getString(R.string.txtTotalPriceCartFragment, it.toString()) // set total price
+                    getString(R.string.txtTotalPriceCartFragment, String.format("%.2f", it)) // set total price
                 btnBuyProducts.isVisible = true // show checkout button
                 txtTotalPriceCartFragment.isVisible = true
             } else {

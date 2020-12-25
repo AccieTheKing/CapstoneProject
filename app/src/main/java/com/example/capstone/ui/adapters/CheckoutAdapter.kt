@@ -49,7 +49,7 @@ class CheckoutAdapter(
             itemView.txtInputAmountCheckoutText.text =
                 String.format("Total amount: %s", product.amount.toString())
             itemView.txtCheckoutPriceText.text =
-                String.format("Total price: %s", product.price.toString())
+                String.format("Total price: %.2f", product.price)
             Glide.with(itemView.context).load(product.banner_image)
                 .into(itemView.ivProductCheckout)
         }
