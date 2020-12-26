@@ -10,6 +10,7 @@ import androidx.navigation.findNavController
 import com.example.capstone.ui.screens.announcement.HomeFragment
 import com.example.capstone.ui.screens.menu.MenuFragment
 import com.example.capstone.ui.screens.profile.ProfileFragment
+import com.stripe.android.PaymentConfiguration
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -27,6 +28,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        PaymentConfiguration.init(
+            applicationContext,
+            BuildConfig.PUBLIC_TEST_KEY
+        )
         setContentView(R.layout.activity_main)
         navController = findNavController(R.id.nav_host_fragment)
 
