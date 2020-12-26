@@ -1,5 +1,6 @@
 package com.example.capstone.ui.screens.menu.cart
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.capstone.R
 import com.example.capstone.models.Product
 import com.example.capstone.repository.ProfileRepository
+import com.example.capstone.ui.CheckoutActivity
 import com.example.capstone.ui.adapters.CheckoutAdapter
 import com.example.capstone.ui.viewmodels.ProductViewModel
 import kotlinx.android.synthetic.main.fragment_cart.*
@@ -50,6 +52,12 @@ class CartFragment : Fragment() {
             )
         )
         checkoutAdapter.notifyDataSetChanged()
+
+        btnBuyProducts.setOnClickListener {
+            val intent = Intent(activity, CheckoutActivity::class.java)
+            startActivity(intent)
+        }
+    }
     }
 
     private fun observeCart() {
