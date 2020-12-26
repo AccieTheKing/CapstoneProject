@@ -12,7 +12,10 @@ const PRODUCT_ASSIGNMENT_METHODS = {
 // user cart
 let userCart = {
   phoneNumber: null,
-  cart: [],
+  cart: {
+    products: [],
+    price: 0.0,
+  },
 };
 
 router.get('/', async (req, res) => {
@@ -111,7 +114,7 @@ const updateProductWhenFound = async (product, method) => {
   const { exists, productIndex } = await checkIfProductExists(product);
 
   if (exists) {
-    const product = userCart.cart[productIndex]; // found product in the cart
+    const product = userCart.cart.products[productIndex]; // found product in the cart
     const original_product = all_products_list[product.id]; // original product, without any changes
 
     switch (method) {
@@ -138,15 +141,29 @@ const updateProductWhenFound = async (product, method) => {
         );
         break;
     }
-  } else userCart.cart.push(product); // add product into the cart
+  } else userCart.cart.products.push(product); // add product into the cart
+  calculateCartTotalPrice();
 };
+
+async function calculateCartTotalPrice() {
+  let totalPrice = 0.0;
+  userCart.cart.products.forEach((product) => {
+    totalPrice += product.amount;
+  });
+
+  const userCartWithUpdatedPrice = Object.assign(
+    { cart: { ...userCart.cart, price: totalPrice } },
+    userCart
+  );
+  userCart = userCartWithUpdatedPrice;
+}
 
 /**
  * This method will check if the product exists in the user cart
  */
 async function checkIfProductExists(searchForProduct) {
   // if no product found in cart, it returns -1
-  const foundProductIndex = userCart.cart.findIndex(
+  const foundProductIndex = userCart.cart.products.findIndex(
     (searchingProduct) => searchingProduct.id === searchForProduct.id
   );
   return { exists: foundProductIndex > -1, productIndex: foundProductIndex };
@@ -165,7 +182,7 @@ async function updateProductPrice(updatedProduct, originalPrice) {
 
 async function removeProduct(product) {
   const { productIndex } = await checkIfProductExists(product);
-  userCart.cart = userCart.cart.slice(0, productIndex);
+  userCart.cart.products = userCart.cart.products.slice(0, productIndex);
 }
 
 /**
@@ -199,7 +216,7 @@ async function updateProduct(action, product, original_product) {
     };
 
     const { productIndex } = await checkIfProductExists(product);
-    userCart.cart[productIndex] = updatedProduct;
+    userCart.cart.products[productIndex] = updatedProduct;
   } else removeProduct(product);
 }
 

@@ -52,8 +52,8 @@ class ProductRepository {
     suspend fun addProductToCart(product: Product, phone_number: String) {
         try {
             val result = productApiService.addProductToCart(product.id, phone_number)
-            _cart.value = result
-            _price.value = calculateTotalPrice(result)
+            _cart.value = result.products
+            _price.value = result.price
         } catch (error: Throwable) {
             throw ProductError("Adding the product to cart failed", error)
         }
@@ -62,8 +62,8 @@ class ProductRepository {
     suspend fun increaseProductAmount(product_id: Int, phoneNumber: String) {
         try {
             val result = productApiService.increaseProductAmount(product_id, phoneNumber)
-            _cart.value = result
-            _price.value = calculateTotalPrice(result)
+            _cart.value = result.products
+            _price.value = result.price
         } catch (error: Throwable) {
             throw ProductError("Increasing the product amount failed", error)
         }
@@ -72,8 +72,8 @@ class ProductRepository {
     suspend fun decreaseProductAmount(product_id: Int, phoneNumber: String) {
         try {
             val result = productApiService.decreaseProductAmount(product_id, phoneNumber)
-            _cart.value = result
-            _price.value = calculateTotalPrice(result)
+            _cart.value = result.products
+            _price.value = result.price
         } catch (error: Throwable) {
             throw ProductError("Decreasing the product amount", error)
         }
@@ -83,21 +83,11 @@ class ProductRepository {
     suspend fun getCart(phoneNumber: Int) {
         try {
             val result = productApiService.getCart(phoneNumber)
-            _cart.value = result
-            _price.value = calculateTotalPrice(result)
+            _cart.value = result.products
+            _price.value = result.price
         } catch (error: Throwable) {
             throw ProductError("Getting the cart failed", error)
         }
-    }
-
-    private fun calculateTotalPrice(cart: List<Product>): Double {
-        var totalPrice = 0.00
-        cart.forEach { product ->
-            if (product.price.toString().isNotEmpty()) {
-                totalPrice += product.price
-            }
-        }
-        return totalPrice
     }
 
     class ProductError(message: String, cause: Throwable) : Throwable(message, cause)
