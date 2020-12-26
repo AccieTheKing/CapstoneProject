@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const all_products_list = require('../data/products.json'); // all the products available
 
 const PRODUCT_ASSIGNMENT_METHODS = {
