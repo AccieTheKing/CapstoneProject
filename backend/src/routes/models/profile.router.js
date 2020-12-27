@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const ProfileModel = require('../../database/models/profile.model');
+const { checkToken } = require('../../libs');
 const profileMockData = require('../data/profile.json');
 const {
   sendEmail,
@@ -11,7 +12,7 @@ const {
  * This endpoint is protected and only works with a valud JWT-token. It retrieves the
  * stored data of the user.
  */
-router.get('/', async (req, res) => {
+router.get('/', checkToken, async (req, res) => {
   try {
     const user = await retrieveTokenAndDecode(req.headers.authorization);
     const foundUser = await ProfileModel.findOne({
@@ -26,7 +27,6 @@ router.get('/', async (req, res) => {
 
     res.json(signedInUser).status(200);
   } catch (error) {
-    res.json({ msg: 'No or invalid token found' }).status(401);
     console.log(`Something went wrong with getting the profile: ${error}`);
   }
 });

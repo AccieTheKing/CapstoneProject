@@ -1,6 +1,6 @@
 const router = require('express').Router();
-const ProfileModel = require('../../database/models/profile.model');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const { checkToken } = require('../../libs');
 const { retrieveTokenAndDecode } = require('../helper/index');
 const all_products_list = require('../data/products.json'); // all the products available
 
@@ -20,13 +20,9 @@ let userCart = {
   },
 };
 
-router.get('/', async (req, res) => {
+router.get('/', checkToken, async (req, res) => {
   try {
-    retrieveTokenAndDecode(req.headers.authorization)
-      .then((user) => {
-        res.json(all_products_list);
-      })
-      .catch((error) => res.json({ msg: 'Invalid token' }));
+    res.json(all_products_list);
   } catch (error) {
     console.log(
       `Something went wrong with fetching list of products: ${error}`
@@ -34,26 +30,24 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/:productID', async (req, res) => {
+router.get('/:productID', checkToken, async (req, res) => {
   try {
-    retrieveTokenAndDecode(req.headers.authorization).then((user) => {
-      const selectedUserProduct = all_products_list[req.params.productID];
-      res.json(selectedUserProduct);
-    });
+    const selectedUserProduct = all_products_list[req.params.productID];
+    res.json(selectedUserProduct);
   } catch (error) {}
 });
 
-router.get('/cart/:phoneNumber', async (req, res) => {
+router.get('/cart/:phoneNumber', checkToken, async (req, res) => {
   try {
-    retrieveTokenAndDecode(req.headers.authorization).then((user) => {
-      res.json(userCart.cart);
-    });
+    res.json(userCart.cart);
   } catch (error) {}
 });
 
-router.post('/cart/add/:productid/:phoneNumber', async (req, res) => {
-  try {
-    retrieveTokenAndDecode(req.headers.authorization).then((user) => {
+router.post(
+  '/cart/add/:productid/:phoneNumber',
+  checkToken,
+  async (req, res) => {
+    try {
       const selected_product = all_products_list[req.params.productid]; // user selected product
       updateProductWhenFound(
         selected_product,
@@ -70,16 +64,18 @@ router.post('/cart/add/:productid/:phoneNumber', async (req, res) => {
           price: totalPrice,
         });
       });
-    });
-  } catch (error) {}
-});
+    } catch (error) {}
+  }
+);
 
 /**
  * Increase and decrease the amount of items inside the cart
  */
-router.post('/cart/increase/:productid/:phoneNumber', async (req, res) => {
-  try {
-    retrieveTokenAndDecode(req.headers.authorization).then((user) => {
+router.post(
+  '/cart/increase/:productid/:phoneNumber',
+  checkToken,
+  async (req, res) => {
+    try {
       const selected_product = all_products_list[req.params.productid]; // user selected product
 
       updateProductWhenFound(
@@ -97,13 +93,15 @@ router.post('/cart/increase/:productid/:phoneNumber', async (req, res) => {
           price: totalPrice,
         });
       });
-    });
-  } catch (error) {}
-});
+    } catch (error) {}
+  }
+);
 
-router.post('/cart/decrease/:productid/:phoneNumber', async (req, res) => {
-  try {
-    retrieveTokenAndDecode(req.headers.authorization).then((user) => {
+router.post(
+  '/cart/decrease/:productid/:phoneNumber',
+  checkToken,
+  async (req, res) => {
+    try {
       const selected_product = all_products_list[req.params.productid]; // user selected product
 
       updateProductWhenFound(
@@ -120,11 +118,11 @@ router.post('/cart/decrease/:productid/:phoneNumber', async (req, res) => {
           price: totalPrice,
         });
       });
-    });
-  } catch (error) {}
-});
+    } catch (error) {}
+  }
+);
 
-router.post('/cart/create-payment-intent', async (req, res) => {
+router.post('/cart/create-payment-intent', checkToken, async (req, res) => {
   try {
     const user = await retrieveTokenAndDecode(req.headers.authorization);
     const { items } = req.body;
@@ -133,7 +131,7 @@ router.post('/cart/create-payment-intent', async (req, res) => {
       amount: totalPrice.toFixed(0),
       currency: 'eur',
       payment_method_types: ['card'],
-      receipt_email: user.email,
+      receipt_email: user.email_address,
     });
 
     res.send({ clientSecret: paymentIntent.client_secret });
