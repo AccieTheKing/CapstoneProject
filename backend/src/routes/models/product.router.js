@@ -19,24 +19,48 @@ let userCart = {
 };
 
 router.get('/', async (req, res) => {
+  try {
+    retrieveTokenAndDecode(req.headers.authorization)
+      .then((user) => {
+        res.json(all_products_list);
+      })
+      .catch((error) => res.json({ msg: 'Invalid token' }));
+  } catch (error) {
+    console.log(
+      `Something went wrong with fetching list of products: ${error}`
+    );
+  }
   res.json(all_products_list);
 });
 
 router.get('/:productID', async (req, res) => {
+  try {
+    retrieveTokenAndDecode(req.headers.authorization).then((user) => {
+      const selectedUserProduct = all_products_list[req.params.productID];
+      res.json(selectedUserProduct);
+    });
+  } catch (error) {}
+});
   const selectedUserProduct = all_products_list[req.params.productID];
   res.json(selectedUserProduct);
 });
 
 router.get('/cart/:phoneNumber', async (req, res) => {
-  userCart = {
-    ...userCart,
-    phoneNumber: req.params.phoneNumber,
-  };
-
-  res.json(userCart.cart);
+  try {
+    retrieveTokenAndDecode(req.headers.authorization).then((user) => {
+      res.json(userCart.cart);
+    });
+  } catch (error) {}
 });
 
 router.post('/cart/add/:productid/:phoneNumber', async (req, res) => {
+  try {
+    retrieveTokenAndDecode(req.headers.authorization).then((user) => {
+      const selected_product = all_products_list[req.params.productid]; // user selected product
+      updateProductWhenFound(
+        selected_product,
+        PRODUCT_ASSIGNMENT_METHODS.ADD
+      ).then((productCart) => {
   const selected_product = all_products_list[req.params.productid]; // user selected product
 
   // fill the user with the phone number
@@ -51,40 +75,50 @@ router.post('/cart/add/:productid/:phoneNumber', async (req, res) => {
     }
   );
 });
+      });
+    });
+  } catch (error) {}
+});
 
 /**
  * Increase and decrease the amount of items inside the cart
  */
 router.post('/cart/increase/:productid/:phoneNumber', async (req, res) => {
-  const selected_product = all_products_list[req.params.productid]; // user selected product
+  try {
+    retrieveTokenAndDecode(req.headers.authorization).then((user) => {
+      const selected_product = all_products_list[req.params.productid]; // user selected product
   // fill the user with the phone number
   userCart = {
     ...userCart,
     phoneNumber: req.params.phoneNumber,
   };
 
-  updateProductWhenFound(
-    selected_product,
-    PRODUCT_ASSIGNMENT_METHODS.INCREMENT
-  ).then(() => {
+      updateProductWhenFound(
+        selected_product,
+        PRODUCT_ASSIGNMENT_METHODS.INCREMENT
+      ).then((productCart) => {
     res.json(userCart.cart);
   });
 });
+  } catch (error) {}
 
 router.post('/cart/decrease/:productid/:phoneNumber', async (req, res) => {
-  const selected_product = all_products_list[req.params.productid]; // user selected product
+  try {
+    retrieveTokenAndDecode(req.headers.authorization).then((user) => {
+      const selected_product = all_products_list[req.params.productid]; // user selected product
   // fill the user with the phone number
   userCart = {
     ...userCart,
     phoneNumber: req.params.phoneNumber,
   };
 
-  updateProductWhenFound(
-    selected_product,
-    PRODUCT_ASSIGNMENT_METHODS.DECREMENT
-  ).then(() => {
+      updateProductWhenFound(
+        selected_product,
+        PRODUCT_ASSIGNMENT_METHODS.DECREMENT
+      ).then(async (productCart) => {
     res.json(userCart.cart);
   });
+  } catch (error) {}
 });
 
 const calculateOrderAmount = (items) => {
