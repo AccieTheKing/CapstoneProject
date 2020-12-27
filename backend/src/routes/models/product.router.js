@@ -1,5 +1,7 @@
 const router = require('express').Router();
+const ProfileModel = require('../../database/models/profile.model');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const { retrieveTokenAndDecode } = require('../helper/index');
 const all_products_list = require('../data/products.json'); // all the products available
 
 const PRODUCT_ASSIGNMENT_METHODS = {
@@ -30,7 +32,6 @@ router.get('/', async (req, res) => {
       `Something went wrong with fetching list of products: ${error}`
     );
   }
-  res.json(all_products_list);
 });
 
 router.get('/:productID', async (req, res) => {
@@ -40,9 +41,6 @@ router.get('/:productID', async (req, res) => {
       res.json(selectedUserProduct);
     });
   } catch (error) {}
-});
-  const selectedUserProduct = all_products_list[req.params.productID];
-  res.json(selectedUserProduct);
 });
 
 router.get('/cart/:phoneNumber', async (req, res) => {
@@ -61,20 +59,16 @@ router.post('/cart/add/:productid/:phoneNumber', async (req, res) => {
         selected_product,
         PRODUCT_ASSIGNMENT_METHODS.ADD
       ).then((productCart) => {
-  const selected_product = all_products_list[req.params.productid]; // user selected product
+        let totalPrice = 0.0;
+        productCart.cart.products.map(async (value) => {
+          totalPrice += value.price;
+        });
+        userCart.cart.price = totalPrice;
 
-  // fill the user with the phone number
-  userCart = {
-    ...userCart,
-    phoneNumber: req.params.phoneNumber,
-  };
-
-  updateProductWhenFound(selected_product, PRODUCT_ASSIGNMENT_METHODS.ADD).then(
-    () => {
-      res.json(userCart.cart);
-    }
-  );
-});
+        res.json({
+          products: productCart.cart.products,
+          price: totalPrice,
+        });
       });
     });
   } catch (error) {}
@@ -87,57 +81,66 @@ router.post('/cart/increase/:productid/:phoneNumber', async (req, res) => {
   try {
     retrieveTokenAndDecode(req.headers.authorization).then((user) => {
       const selected_product = all_products_list[req.params.productid]; // user selected product
-  // fill the user with the phone number
-  userCart = {
-    ...userCart,
-    phoneNumber: req.params.phoneNumber,
-  };
 
       updateProductWhenFound(
         selected_product,
         PRODUCT_ASSIGNMENT_METHODS.INCREMENT
       ).then((productCart) => {
-    res.json(userCart.cart);
-  });
-});
+        let totalPrice = 0.0;
+        productCart.cart.products.map(async (value) => {
+          totalPrice += value.price;
+        });
+
+        res.json({
+          products: productCart.cart.products,
+          price: totalPrice,
+        });
+      });
+    });
   } catch (error) {}
+});
 
 router.post('/cart/decrease/:productid/:phoneNumber', async (req, res) => {
   try {
     retrieveTokenAndDecode(req.headers.authorization).then((user) => {
       const selected_product = all_products_list[req.params.productid]; // user selected product
-  // fill the user with the phone number
-  userCart = {
-    ...userCart,
-    phoneNumber: req.params.phoneNumber,
-  };
 
       updateProductWhenFound(
         selected_product,
         PRODUCT_ASSIGNMENT_METHODS.DECREMENT
       ).then(async (productCart) => {
-    res.json(userCart.cart);
-  });
+        let totalPrice = 0.0;
+        productCart.cart.products.map(async (value) => {
+          totalPrice += value.price;
+        });
+
+        res.json({
+          products: productCart.cart.products,
+          price: totalPrice,
+        });
+      });
+    });
   } catch (error) {}
 });
 
-const calculateOrderAmount = (items) => {
-  // Replace this constant with a calculation of the order's amount
-  // Calculate the order total on the server to prevent
-  // people from directly manipulating the amount on the client
-  return 1400;
-};
 router.post('/cart/create-payment-intent', async (req, res) => {
-  const { items } = req.body;
-  // Create a PaymentIntent with the order amount and currency
-  const paymentIntent = await stripe.paymentIntents.create({
-    amount: calculateOrderAmount(items),
-    currency: 'usd',
-  });
-  res.json({
-    clientSecret: paymentIntent.client_secret,
-  });
+  try {
+    const user = await retrieveTokenAndDecode(req.headers.authorization);
+    const { items } = req.body;
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: userCart.cart.price,
+      currency: 'eur',
+      payment_method_types: ['card'],
+      receipt_email: user.email,
+    });
+
+    res.send({ clientSecret: paymentIntent.client_secret });
+  } catch (error) {
+    console.log('payment error', error);
+    res.json({ msg: 'whoops' });
+  }
 });
+
 /**
  * This method will check if the product is already inside the cart of the user
  * and changes its price and amount into a single product
@@ -152,7 +155,6 @@ const updateProductWhenFound = async (product, method) => {
     const original_product = all_products_list[product.id]; // original product, without any changes
 
     switch (method) {
-      // replace the stored product with our modified one
       case PRODUCT_ASSIGNMENT_METHODS.ADD:
         await updateProduct(
           PRODUCT_ASSIGNMENT_METHODS.ADD,
@@ -176,21 +178,8 @@ const updateProductWhenFound = async (product, method) => {
         break;
     }
   } else userCart.cart.products.push(product); // add product into the cart
-  calculateCartTotalPrice();
+  return userCart;
 };
-
-async function calculateCartTotalPrice() {
-  let totalPrice = 0.0;
-  userCart.cart.products.forEach((product) => {
-    totalPrice += product.amount;
-  });
-
-  const userCartWithUpdatedPrice = Object.assign(
-    { cart: { ...userCart.cart, price: totalPrice } },
-    userCart
-  );
-  userCart = userCartWithUpdatedPrice;
-}
 
 /**
  * This method will check if the product exists in the user cart
