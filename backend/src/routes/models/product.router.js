@@ -90,6 +90,7 @@ router.post('/cart/increase/:productid/:phoneNumber', async (req, res) => {
         productCart.cart.products.map(async (value) => {
           totalPrice += value.price;
         });
+        userCart.cart.price = totalPrice;
 
         res.json({
           products: productCart.cart.products,
@@ -113,7 +114,7 @@ router.post('/cart/decrease/:productid/:phoneNumber', async (req, res) => {
         productCart.cart.products.map(async (value) => {
           totalPrice += value.price;
         });
-
+        userCart.cart.price = totalPrice;
         res.json({
           products: productCart.cart.products,
           price: totalPrice,
