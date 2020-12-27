@@ -1,7 +1,11 @@
 const router = require('express').Router();
-const ProfileModel = require('../../database/models/profile.model');
-const { checkToken } = require('../../libs');
 const profileMockData = require('../data/profile.json');
+const { checkToken } = require('../../libs');
+const {
+  findByPhoneNumber,
+  findByEmail,
+  storeProfile,
+} = require('../../database/models/profile.model');
 const {
   sendEmail,
   retrieveTokenAndDecode,
@@ -15,9 +19,7 @@ const {
 router.get('/', checkToken, async (req, res) => {
   try {
     const user = await retrieveTokenAndDecode(req.headers.authorization);
-    const foundUser = await ProfileModel.findOne({
-      phoneNumber: user.phone_number,
-    });
+    const foundUser = await findByPhoneNumber(user.phone_number);
 
     const signedInUser = {
       ...profileMockData,
@@ -40,9 +42,7 @@ router.get('/', checkToken, async (req, res) => {
  */
 router.post('/sendverificationcode', async (req, res) => {
   try {
-    const foundUser = await ProfileModel.findOne({
-      email: req.body.email_address,
-    });
+    const foundUser = await findByEmail(req.body.email_address);
 
     if (foundUser && foundUser.verificationCode === req.body.verificationCode) {
       const signedInUser = {
@@ -73,23 +73,18 @@ router.post('/getverificationcode', async (req, res) => {
   const emailAddress = req.body.email_address;
 
   try {
-    const foundProfile = await ProfileModel.findOne({ email: emailAddress });
-    sendEmail(foundProfile.email, foundProfile.verificationCode);
+    const foundProfile = await findByEmail(emailAddress);
 
-    res.status(200);
+    if (foundProfile) {
+      sendEmail(foundProfile.email, foundProfile.verificationCode);
+      res.status(200);
+    } else {
+      const randomVerificationCode = Math.floor(1000 + Math.random() * 8999); // generates random 4 digit number
+      sendEmail(emailAddress, randomVerificationCode);
+      storeProfile(emailAddress, phoneNumber, randomVerificationCode);
+      res.status(200);
+    }
   } catch (error) {
-    const randomVerificationCode = Math.floor(1000 + Math.random() * 8999); // generates random 4 digit number
-    const emailResponseID = await sendEmail(
-      emailAddress,
-      randomVerificationCode
-    );
-
-    const profileModel = new ProfileModel({
-      email: emailAddress,
-      phoneNumber: phoneNumber,
-      verificationCode: randomVerificationCode,
-    });
-    profileModel.save();
     console.log(
       `something went wrong with retrieving verification code: ${error}`
     );
