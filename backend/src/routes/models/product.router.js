@@ -128,8 +128,9 @@ router.post('/cart/create-payment-intent', async (req, res) => {
   try {
     const user = await retrieveTokenAndDecode(req.headers.authorization);
     const { items } = req.body;
+    const totalPrice = userCart.cart.price * 100;
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: userCart.cart.price,
+      amount: totalPrice.toFixed(0),
       currency: 'eur',
       payment_method_types: ['card'],
       receipt_email: user.email,
