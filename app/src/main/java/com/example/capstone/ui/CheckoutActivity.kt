@@ -8,6 +8,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.capstone.BuildConfig
 import com.example.capstone.R
+import com.example.capstone.repository.ProfileRepository
 import com.google.gson.GsonBuilder
 import com.stripe.android.ApiResultCallback
 import com.stripe.android.PaymentIntentResult
@@ -61,7 +62,7 @@ class CheckoutActivity : AppCompatActivity() {
         val mediaType = "application/json; charset=utf-8".toMediaType()
         val requestJson = """
       {
-          "currency":"usd",
+          "items": [{"id":"xl-tshirt"}]
           "items": [
               {"id":"xl-tshirt"}
           ]
@@ -70,6 +71,7 @@ class CheckoutActivity : AppCompatActivity() {
         val body = requestJson.toRequestBody(mediaType)
         val request = Request.Builder()
             .url(backendUrl + "product/cart/create-payment-intent")
+            .header("Authorization", ProfileRepository.authToken)
             .post(body)
             .build()
         httpClient.newCall(request)
