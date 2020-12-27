@@ -9,7 +9,7 @@
         android:id="@+id/homeFragment"
         android:name="com.example.capstone.ui.screens.announcement.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_menuFragment"
             app:destination="@id/menuFragment" />
@@ -27,7 +27,7 @@
         android:id="@+id/menuFragment"
         android:name="com.example.capstone.ui.screens.menu.MenuFragment"
         android:label="fragment_menu"
-        tools:layout="@layout/fragment_menu" >
+        tools:layout="@layout/fragment_menu">
         <action
             android:id="@+id/action_menuFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
@@ -42,7 +42,7 @@
         android:id="@+id/profileFragment"
         android:name="com.example.capstone.ui.screens.profile.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" >
+        tools:layout="@layout/fragment_profile">
         <action
             android:id="@+id/action_profileFragment_to_menuFragment"
             app:destination="@id/menuFragment" />
@@ -52,12 +52,15 @@
         <action
             android:id="@+id/action_profileFragment_to_profileEditFragment"
             app:destination="@id/profileEditFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_profileEditFragment2"
+            app:destination="@id/profileEditFragment" />
     </fragment>
     <fragment
         android:id="@+id/announcementDetailFragment"
         android:name="com.example.capstone.ui.screens.announcement.AnnouncementDetailFragment"
         android:label="fragment_announcement_detail"
-        tools:layout="@layout/fragment_announcement_detail" >
+        tools:layout="@layout/fragment_announcement_detail">
         <action
             android:id="@+id/action_announcementDetailFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
@@ -65,10 +68,13 @@
     <fragment
         android:id="@+id/profileEditFragment"
         android:name="com.example.capstone.ui.screens.profile.ProfileEditFragment"
-        android:label="ProfileEditFragment" >
+        android:label="ProfileEditFragment">
         <action
             android:id="@+id/action_profileEditFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_profileEditFragment_to_verificationFragment"
+            app:destination="@id/verificationFragment" />
         <action
             android:id="@+id/action_profileEditFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
@@ -77,9 +83,18 @@
         android:id="@+id/productDetailFragment"
         android:name="com.example.capstone.ui.screens.menu.product.ProductDetailFragment"
         android:label="fragment_product_detail"
-        tools:layout="@layout/fragment_product_detail" >
+        tools:layout="@layout/fragment_product_detail">
         <action
             android:id="@+id/action_productDetailFragment_to_menuFragment"
             app:destination="@id/menuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/verificationFragment"
+        android:name="com.example.capstone.ui.screens.profile.VerificationFragment"
+        android:label="fragment_verification"
+        tools:layout="@layout/fragment_verification">
+        <action
+            android:id="@+id/action_verificationFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
 </navigation>
