@@ -23,10 +23,10 @@ const findByPhoneNumber = async (phoneNumber) => {
 
 const storeProfile = async (email, phoneNumber, verificationCode) => {
   try {
-    const profileModel = new ProfileModel({
-      email,
-      phoneNumber,
-      verificationCode,
+    const profileModel = new Profile({
+      email: email,
+      phoneNumber: phoneNumber,
+      verificationCode: verificationCode,
     });
     profileModel.save();
   } catch (error) {
