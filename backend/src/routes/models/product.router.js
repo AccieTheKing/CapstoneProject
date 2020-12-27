@@ -13,7 +13,6 @@ const PRODUCT_ASSIGNMENT_METHODS = {
 
 // user cart
 let userCart = {
-  phoneNumber: null,
   cart: {
     products: [],
     price: 0.0,
@@ -133,6 +132,13 @@ router.post('/cart/create-payment-intent', checkToken, async (req, res) => {
       payment_method_types: ['card'],
       receipt_email: user.email_address,
     });
+
+    userCart = {
+      cart: {
+        products: [],
+        price: 0.0,
+      },
+    };
 
     res.send({ clientSecret: paymentIntent.client_secret });
   } catch (error) {
