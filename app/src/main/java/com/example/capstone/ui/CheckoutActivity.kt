@@ -7,6 +7,7 @@ import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.capstone.BuildConfig
+import com.example.capstone.MainActivity
 import com.example.capstone.R
 import com.example.capstone.repository.ProfileRepository
 import com.google.gson.GsonBuilder
@@ -51,7 +52,10 @@ class CheckoutActivity : AppCompatActivity() {
             val builder = AlertDialog.Builder(activity)
                 .setTitle(title)
                 .setMessage(message)
-            builder.setPositiveButton("Ok", null)
+            builder.setPositiveButton("Ok") { _, _ ->
+                val intent = Intent(activity, MainActivity::class.java)
+                startActivity(intent)
+            }
             builder.create().show()
         }
     }
@@ -63,9 +67,6 @@ class CheckoutActivity : AppCompatActivity() {
         val requestJson = """
       {
           "items": [{"id":"xl-tshirt"}]
-          "items": [
-              {"id":"xl-tshirt"}
-          ]
       }
       """
         val body = requestJson.toRequestBody(mediaType)
@@ -98,7 +99,6 @@ class CheckoutActivity : AppCompatActivity() {
                         // For added security, our sample app gets the publishable key
                         // from the server.
                         paymentIntentClientSecret = responseJson.getString("clientSecret")
-                        println(String.format("Heeey: %s", paymentIntentClientSecret))
                     }
                 }
             })
