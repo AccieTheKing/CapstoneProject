@@ -30,12 +30,12 @@ const retrieveTokenAndDecode = async (authHeader) => {
   } else return false;
 };
 
-const encodeObjectAndRetrievToken = async (object) => {
+const encodeObjectAndRetrieveToken = async (object) => {
   return `Bearer ${jwt.sign(object, process.env.JWT_SECRET)}`;
 };
 
 module.exports = {
   sendEmail,
   retrieveTokenAndDecode,
-  encodeObjectAndRetrievToken,
+  encodeObjectAndRetrieveToken,
 };
