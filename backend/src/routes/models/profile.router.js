@@ -9,7 +9,7 @@ const {
 const {
   sendEmail,
   retrieveTokenAndDecode,
-  encodeObjectAndRetrievToken,
+  encodeObjectAndRetrieveToken,
 } = require('../helper/index');
 
 /**
@@ -51,7 +51,7 @@ router.post('/sendverificationcode', async (req, res) => {
         email_address: foundUser.email,
       };
 
-      const token = await encodeObjectAndRetrievToken(signedInUser);
+      const token = await encodeObjectAndRetrieveToken(signedInUser);
       res.json({ authToken: token });
     } else res.json({ msg: 'wrong verification token' });
   } catch (error) {
